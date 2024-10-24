@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace LinqSTG.Extensions
 {
@@ -45,7 +46,11 @@ namespace LinqSTG.Extensions
                         var subEnumerator = subEnumerators[minElapsedID].node;
                         var nextInterval = subEnumerator.Current.Interval;
                         var subElapsed = subEnumerators[minElapsedID].elapsed;
-                        yield return new PatternNode<UData?, TInterval>(subElapsed + nextInterval - elapsedTime);
+                        var nextSub = subElapsed + nextInterval - elapsedTime;
+                        if (nextSub != TInterval.Zero)
+                        {
+                            yield return new PatternNode<UData?, TInterval>(nextSub);
+                        }
                         elapsedTime = subElapsed + nextInterval;
                         bool isValid = true;
                         while ((isValid = subEnumerator.MoveNext()) && subEnumerator.Current.IsData)
@@ -59,7 +64,11 @@ namespace LinqSTG.Extensions
                         };
                         minElapsedID = CalculateMinElapsed(subEnumerators);
                     }
-                    yield return new PatternNode<UData?, TInterval>(interval - (elapsedTime - lastElapsedTime));
+                    var next = interval + lastElapsedTime - elapsedTime;
+                    if (next != TInterval.Zero)
+                    {
+                        yield return new PatternNode<UData?, TInterval>(next);
+                    }
                     elapsedTime = lastElapsedTime + interval;
                 }
             }
@@ -70,7 +79,11 @@ namespace LinqSTG.Extensions
                     var subEnumerator = subEnumerators[minElapsedID].node;
                     var nextInterval = subEnumerator.Current.Interval;
                     var subElapsed = subEnumerators[minElapsedID].elapsed;
-                    yield return new PatternNode<UData?, TInterval>(subElapsed + nextInterval - elapsedTime);
+                    var nextSub = subElapsed + nextInterval - elapsedTime;
+                    if (nextSub != TInterval.Zero)
+                    {
+                        yield return new PatternNode<UData?, TInterval>(nextSub);
+                    }
                     elapsedTime = subElapsed + nextInterval;
                     bool isValid = true;
                     while ((isValid = subEnumerator.MoveNext()) && subEnumerator.Current.IsData)
@@ -145,7 +158,11 @@ namespace LinqSTG.Extensions
                         var subEnumerator = subEnumerators[minElapsedID].node;
                         var nextInterval = subEnumerator.Current.Interval;
                         var subElapsed = subEnumerators[minElapsedID].elapsed;
-                        yield return new PatternNode<VData?, TInterval>(subElapsed + nextInterval - elapsedTime);
+                        var nextSub = subElapsed + nextInterval - elapsedTime;
+                        if (nextSub != TInterval.Zero)
+                        {
+                            yield return new PatternNode<VData?, TInterval>(nextSub);
+                        }
                         elapsedTime = subElapsed + nextInterval;
                         bool isValid = true;
                         while ((isValid = subEnumerator.MoveNext()) && subEnumerator.Current.IsData)
@@ -159,7 +176,11 @@ namespace LinqSTG.Extensions
                         };
                         minElapsedID = CalculateMinElapsed(subEnumerators);
                     }
-                    yield return new PatternNode<VData?, TInterval>(interval - (elapsedTime - lastElapsedTime));
+                    var next = interval + lastElapsedTime - elapsedTime;
+                    if (next != TInterval.Zero)
+                    {
+                        yield return new PatternNode<VData?, TInterval>(next);
+                    }
                     elapsedTime = lastElapsedTime + interval;
                 }
             }
@@ -170,7 +191,11 @@ namespace LinqSTG.Extensions
                     var subEnumerator = subEnumerators[minElapsedID].node;
                     var nextInterval = subEnumerator.Current.Interval;
                     var subElapsed = subEnumerators[minElapsedID].elapsed;
-                    yield return new PatternNode<VData?, TInterval>(subElapsed + nextInterval - elapsedTime);
+                    var nextSub = subElapsed + nextInterval - elapsedTime;
+                    if (nextSub != TInterval.Zero)
+                    {
+                        yield return new PatternNode<VData?, TInterval>(nextSub);
+                    }
                     elapsedTime = subElapsed + nextInterval;
                     bool isValid = true;
                     while ((isValid = subEnumerator.MoveNext()) && subEnumerator.Current.IsData)
