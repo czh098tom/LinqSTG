@@ -1,4 +1,5 @@
-﻿using static LinqSTG.Pattern;
+﻿using LinqSTG.Easings;
+using static LinqSTG.Pattern;
 
 namespace LinqSTG.Demo
 {
@@ -15,7 +16,8 @@ namespace LinqSTG.Demo
 
             var p = from r1 in Repeat<int>(times: 6)
                     from r2 in RepeatWithInterval(times: 3, interval: 1)
-                    select r1.Sample01(IntervalType.HeadClosed) * 360f + r2.Sample01(IntervalType.BothClosed) * 5f;
+                    select r1.Sample01(IntervalType.HeadClosed).MinMax(0f, 360f) 
+                        + r2.Sample01(IntervalType.BothClosed).MinMax(-5f, 5f);
             p.ShootByConsole();
         }
     }
