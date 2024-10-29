@@ -11,4 +11,10 @@ namespace LinqSTG
     {
         public void Shoot(IPattern<TData, TInterval> pattern);
     }
+
+    public interface IShooter<TData, TInterval, TResult>
+        where TInterval : struct
+    {
+        public TResult Shoot(IPattern<TData, TInterval> pattern);
+    }
 }
