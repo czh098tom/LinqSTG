@@ -14,7 +14,6 @@ namespace LinqSTG.Extensions
             this IEnumerable<PatternNode<TData?, TInterval>> enumerable,
             Func<TData?, IPattern<UData?, TInterval>> binder)
             where TInterval : struct,
-            IAdditionOperators<TInterval, TInterval, TInterval>,
             IComparisonOperators<TInterval, TInterval, bool>,
             IMinMaxValue<TInterval>,
             INumberBase<TInterval>
@@ -102,7 +101,6 @@ namespace LinqSTG.Extensions
 
         private static int CalculateMinElapsed<TInterval, UData>(List<(IEnumerator<PatternNode<UData?, TInterval>> node, TInterval elapsed, bool isValid)> subEnumerators)
             where TInterval : struct,
-            IAdditionOperators<TInterval, TInterval, TInterval>,
             IComparisonOperators<TInterval, TInterval, bool>,
             IMinMaxValue<TInterval>,
             INumberBase<TInterval>
@@ -126,7 +124,6 @@ namespace LinqSTG.Extensions
             Func<TData?, IPattern<UData?, TInterval>> binder,
             Func<TData?, UData?, VData?> resultMapper)
             where TInterval : struct,
-            IAdditionOperators<TInterval, TInterval, TInterval>,
             IComparisonOperators<TInterval, TInterval, bool>,
             IMinMaxValue<TInterval>,
             INumberBase<TInterval>
@@ -214,7 +211,6 @@ namespace LinqSTG.Extensions
 
         private static int CalculateMinElapsed<TData, TInterval, UData>(List<(IEnumerator<PatternNode<UData?, TInterval>> node, TData? original, TInterval elapsed, bool isValid)> subEnumerators)
             where TInterval : struct,
-            IAdditionOperators<TInterval, TInterval, TInterval>,
             IComparisonOperators<TInterval, TInterval, bool>,
             IMinMaxValue<TInterval>,
             INumberBase<TInterval>

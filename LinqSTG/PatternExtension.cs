@@ -82,7 +82,6 @@ namespace LinqSTG
             this IPattern<TData?, TInterval> pattern,
             Func<TData?, IPattern<UData?, TInterval>> binder)
             where TInterval : struct,
-            IAdditionOperators<TInterval, TInterval, TInterval>,
             IComparisonOperators<TInterval, TInterval, bool>,
             IMinMaxValue<TInterval>,
             INumberBase<TInterval>
@@ -108,7 +107,6 @@ namespace LinqSTG
             Func<TData?, IPattern<UData?, TInterval>> binder,
             Func<TData?, UData?, VData?> selector)
             where TInterval : struct,
-            IAdditionOperators<TInterval, TInterval, TInterval>,
             IComparisonOperators<TInterval, TInterval, bool>,
             IMinMaxValue<TInterval>,
             INumberBase<TInterval>
