@@ -22,6 +22,7 @@ namespace LinqSTG.Easings
             return mapper(value);
         }
 
+#if NET7_0_OR_GREATER
         /// <summary>
         /// Scale the value between 0 and 1 into value between min and max.
         /// </summary>
@@ -37,5 +38,30 @@ namespace LinqSTG.Easings
         {
             return max * value + min * (T.MultiplicativeIdentity - value);
         }
+#else
+        /// <summary>
+        /// Scale the value between 0 and 1 into value between min and max.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="min">The min value.</param>
+        /// <param name="max">The max value.</param>
+        /// <returns>The value mapped.</returns>
+        public static float MinMax(this float value, float min, float max)
+        {
+            return max * value + min * (1 - value);
+        }
+
+        /// <summary>
+        /// Scale the value between 0 and 1 into value between min and max.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="min">The min value.</param>
+        /// <param name="max">The max value.</param>
+        /// <returns>The value mapped.</returns>
+        public static double MinMax(this double value, double min, double max)
+        {
+            return max * value + min * (1 - value);
+        }
+#endif
     }
 }
