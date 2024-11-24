@@ -115,6 +115,35 @@ namespace LinqSTG
         }
 
         /// <summary>
+        /// Concatenates a pattern to the end of the given pattern.
+        /// </summary>
+        /// <typeparam name="TData">Original shoot event.</typeparam>
+        /// <typeparam name="TInterval">Interval type in pattern.</typeparam>
+        /// <param name="pattern1">First pattern.</param>
+        /// <param name="pattern2">The second pattern attached to the end of fitst.</param>
+        /// <returns>A new pattern with event concatenated.</returns>
+        public static IPattern<TData, TInterval> Concat<TData, TInterval>(this IPattern<TData, TInterval> pattern1,
+             IPattern<TData, TInterval> pattern2)
+            where TInterval : struct
+        {
+            return new ConcatPattern<TData, TInterval>(pattern1, pattern2);
+        }
+
+        /// <summary>
+        /// Remove excess interval at the start of pattern.
+        /// </summary>
+        /// <typeparam name="TData">Original shoot event.</typeparam>
+        /// <typeparam name="TInterval">Interval type in pattern.</typeparam>
+        /// <param name="pattern">Source pattern.</param>
+        /// <returns>A new pattern with interval at the end removed.</returns>
+        public static IPattern<TData, TInterval> TrimStart<TData, TInterval>(
+            this IPattern<TData, TInterval> pattern)
+            where TInterval : struct
+        {
+            return new TrimStartPattern<TData, TInterval>(pattern);
+        }
+
+        /// <summary>
         /// Remove excess interval at the end of pattern.
         /// </summary>
         /// <typeparam name="TData">Original shoot event.</typeparam>
@@ -126,6 +155,20 @@ namespace LinqSTG
             where TInterval : struct
         {
             return new TrimEndPattern<TData, TInterval>(pattern);
+        }
+
+        /// <summary>
+        /// Remove excess interval at the start of pattern and at the end of pattern.
+        /// </summary>
+        /// <typeparam name="TData">Original shoot event.</typeparam>
+        /// <typeparam name="TInterval">Interval type in pattern.</typeparam>
+        /// <param name="pattern">Source pattern.</param>
+        /// <returns>A new pattern with interval at the end removed.</returns>
+        public static IPattern<TData, TInterval> Trim<TData, TInterval>(
+            this IPattern<TData, TInterval> pattern)
+            where TInterval : struct
+        {
+            return new TrimStartPattern<TData, TInterval>(pattern);
         }
     }
 }
