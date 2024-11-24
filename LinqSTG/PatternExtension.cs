@@ -130,6 +130,20 @@ namespace LinqSTG
         }
 
         /// <summary>
+        /// Reverse the finite pattern.
+        /// </summary>
+        /// <typeparam name="TData">Original shoot event.</typeparam>
+        /// <typeparam name="TInterval">Interval type in pattern.</typeparam>
+        /// <param name="pattern">Source pattern.</param>
+        /// <returns>A new pattern with interval at the end removed.</returns>
+        public static IPattern<TData, TInterval> Reverse<TData, TInterval>(
+            this IPattern<TData, TInterval> pattern)
+            where TInterval : struct
+        {
+            return new ReversePattern<TData, TInterval>(pattern);
+        }
+
+        /// <summary>
         /// Remove excess interval at the start of pattern.
         /// </summary>
         /// <typeparam name="TData">Original shoot event.</typeparam>
