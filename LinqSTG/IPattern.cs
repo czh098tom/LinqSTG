@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LinqSTG
 {
-    public interface IPattern<TData, TInterval> : IEnumerable<PatternNode<TData, TInterval>>
+    public interface IPattern<TData, TInterval> : IEnumerable<PatternNode<TData?, TInterval>>
         where TInterval : struct
     {
     }

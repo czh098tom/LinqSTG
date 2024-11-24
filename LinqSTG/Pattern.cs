@@ -1,8 +1,9 @@
-﻿using LinqSTG.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
+using LinqSTG.Extensions;
 
 namespace LinqSTG
 {
@@ -17,7 +18,7 @@ namespace LinqSTG
         public static IPattern<Repeater, TInterval> Repeat<TInterval>(int times)
             where TInterval : struct
         {
-            return new Decorator<Repeater, TInterval>(RepeatImpl<TInterval>(times));
+            return new RepeatPattern<TInterval>(times);
         }
 
         /// <summary>
@@ -30,26 +31,7 @@ namespace LinqSTG
         public static IPattern<Repeater, TInterval> RepeatWithInterval<TInterval>(int times, TInterval interval)
             where TInterval : struct
         {
-            return new Decorator<Repeater, TInterval>(RepeatWithIntervalImpl(times, interval));
-        }
-
-        private static IEnumerable<PatternNode<Repeater, TInterval>> RepeatImpl<TInterval>(int times)
-            where TInterval : struct
-        {
-            for (int i = 0; i < times; i++)
-            {
-                yield return new PatternNode<Repeater, TInterval>(new Repeater(i, times));
-            }
-        }
-
-        private static IEnumerable<PatternNode<Repeater, TInterval>> RepeatWithIntervalImpl<TInterval>(int times, TInterval interval)
-            where TInterval : struct
-        {
-            for (int i = 0; i < times; i++)
-            {
-                yield return new PatternNode<Repeater, TInterval>(new Repeater(i, times));
-                yield return new PatternNode<Repeater, TInterval>(interval);
-            }
+            return new RepeatWithIntervalPattern<TInterval>(times, interval);
         }
     }
 }

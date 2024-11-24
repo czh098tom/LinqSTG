@@ -20,12 +20,12 @@ namespace LinqSTG
         /// <param name="pattern">Source pattern.</param>
         /// <param name="selector">Projecting function.</param>
         /// <returns>A new pattern with event mapped.</returns>
-        public static IPattern<UData?, TInterval> Select<TData, TInterval, UData>(
-            this IPattern<TData?, TInterval> pattern,
+        public static IPattern<UData, TInterval> Select<TData, TInterval, UData>(
+            this IPattern<TData, TInterval> pattern,
             Func<TData?, UData?> selector)
             where TInterval : struct
         {
-            return new Decorator<UData?, TInterval>(((IEnumerable<PatternNode<TData?, TInterval>>)pattern).Select(selector));
+            return new SelectPattern<TData, TInterval, UData>(pattern, selector);
         }
 
         /// <summary>
@@ -38,12 +38,12 @@ namespace LinqSTG
         /// <param name="pattern">Source pattern.</param>
         /// <param name="binder">Projecting function.</param>
         /// <returns>A new pattern with event mapped.</returns>
-        public static IPattern<UData?, TInterval> SelectManyConcat<TData, TInterval, UData>(
-            this IPattern<TData?, TInterval> pattern,
+        public static IPattern<UData, TInterval> SelectManyConcat<TData, TInterval, UData>(
+            this IPattern<TData, TInterval> pattern,
             Func<TData?, IPattern<UData?, TInterval>> binder)
             where TInterval : struct
         {
-            return new Decorator<UData?, TInterval>(((IEnumerable<PatternNode<TData?, TInterval>>)pattern).SelectManyConcat(binder));
+            return new SelectManyConcatPattern<TData, TInterval, UData, UData>(pattern, binder, (t, u) => u);
         }
 
         /// <summary>
@@ -59,13 +59,13 @@ namespace LinqSTG
         /// <param name="binder">Projecting function.</param>
         /// <param name="selector">Mapping function.</param>
         /// <returns>A new pattern with event mapped.</returns>
-        public static IPattern<VData?, TInterval> SelectManyConcat<TData, TInterval, UData, VData>(
-            this IPattern<TData?, TInterval> pattern,
+        public static IPattern<VData, TInterval> SelectManyConcat<TData, TInterval, UData, VData>(
+            this IPattern<TData, TInterval> pattern,
             Func<TData?, IPattern<UData?, TInterval>> binder,
             Func<TData?, UData?, VData?> selector)
             where TInterval : struct
         {
-            return new Decorator<VData?, TInterval>(((IEnumerable<PatternNode<TData?, TInterval>>)pattern).SelectManyConcat(binder, selector));
+            return new SelectManyConcatPattern<TData, TInterval, UData, VData>(pattern, binder, selector);
         }
 
         /// <summary>
@@ -78,15 +78,15 @@ namespace LinqSTG
         /// <param name="pattern">Source pattern.</param>
         /// <param name="binder">Projecting function.</param>
         /// <returns>A new pattern with event mapped.</returns>
-        public static IPattern<UData?, TInterval> SelectMany<TData, TInterval, UData>(
-            this IPattern<TData?, TInterval> pattern,
+        public static IPattern<UData, TInterval> SelectMany<TData, TInterval, UData>(
+            this IPattern<TData, TInterval> pattern,
             Func<TData?, IPattern<UData?, TInterval>> binder)
             where TInterval : struct,
             IComparisonOperators<TInterval, TInterval, bool>,
             IMinMaxValue<TInterval>,
             INumberBase<TInterval>
         {
-            return new Decorator<UData?, TInterval>(((IEnumerable<PatternNode<TData?, TInterval>>)pattern).SelectMany(binder));
+            return new SelectManyPattern<TData, TInterval, UData, UData>(pattern, binder, (t, u) => u);
         }
 
         /// <summary>
@@ -102,8 +102,8 @@ namespace LinqSTG
         /// <param name="binder">Projecting function.</param>
         /// <param name="selector">Mapping function.</param>
         /// <returns>A new pattern with event mapped.</returns>
-        public static IPattern<VData?, TInterval> SelectMany<TData, TInterval, UData, VData>(
-            this IPattern<TData?, TInterval> pattern,
+        public static IPattern<VData, TInterval> SelectMany<TData, TInterval, UData, VData>(
+            this IPattern<TData, TInterval> pattern,
             Func<TData?, IPattern<UData?, TInterval>> binder,
             Func<TData?, UData?, VData?> selector)
             where TInterval : struct,
@@ -111,7 +111,7 @@ namespace LinqSTG
             IMinMaxValue<TInterval>,
             INumberBase<TInterval>
         {
-            return new Decorator<VData?, TInterval>(((IEnumerable<PatternNode<TData?, TInterval>>)pattern).SelectMany(binder, selector));
+            return new SelectManyPattern<TData, TInterval, UData, VData>(pattern, binder, selector);
         }
 
         /// <summary>
@@ -121,11 +121,11 @@ namespace LinqSTG
         /// <typeparam name="TInterval">Interval type in pattern.</typeparam>
         /// <param name="pattern">Source pattern.</param>
         /// <returns>A new pattern with interval at the end removed.</returns>
-        public static IPattern<TData?, TInterval> TrimEnd<TData, TInterval>(
-            this IPattern<TData?, TInterval> pattern)
+        public static IPattern<TData, TInterval> TrimEnd<TData, TInterval>(
+            this IPattern<TData, TInterval> pattern)
             where TInterval : struct
         {
-            return new Decorator<TData?, TInterval>(((IEnumerable<PatternNode<TData?, TInterval>>)pattern).TrimEnd());
+            return new TrimEndPattern<TData, TInterval>(pattern);
         }
     }
 }
