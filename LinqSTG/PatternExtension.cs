@@ -144,6 +144,68 @@ namespace LinqSTG
         }
 
         /// <summary>
+        /// Create a pattern skipping first n shooting events and corresponding intervals.
+        /// </summary>
+        /// <typeparam name="TData">Original shoot event.</typeparam>
+        /// <typeparam name="TInterval">Interval type in pattern.</typeparam>
+        /// <param name="pattern">Source pattern.</param>
+        /// <param name="count">Skip count.</param>
+        /// <returns>A new pattern with first n shooting events removed.</returns>
+        public static IPattern<TData, TInterval> Skip<TData, TInterval>(
+            this IPattern<TData, TInterval> pattern, int count)
+            where TInterval : struct
+        {
+            return new SkipPattern<TData, TInterval>(pattern, count);
+        }
+
+        /// <summary>
+        /// Create a pattern skipping shooting events match predicate and corresponding intervals.
+        /// </summary>
+        /// <typeparam name="TData">Original shoot event.</typeparam>
+        /// <typeparam name="TInterval">Interval type in pattern.</typeparam>
+        /// <param name="pattern">Source pattern.</param>
+        /// <param name="predicate">Skipping predicate.</param>
+        /// <returns>A new pattern with shooting events removed.</returns>
+        public static IPattern<TData, TInterval> SkipWhile<TData, TInterval>(
+            this IPattern<TData, TInterval> pattern, Func<TData?, bool> predicate)
+            where TInterval : struct
+        {
+            return new SkipWhilePattern<TData, TInterval>(pattern, predicate);
+        }
+
+        /// <summary>
+        /// Create a pattern taking first n shooting events and corresponding intervals.
+        /// </summary>
+        /// <typeparam name="TData">Original shoot event.</typeparam>
+        /// <typeparam name="TInterval">Interval type in pattern.</typeparam>
+        /// <param name="pattern">Source pattern.</param>
+        /// <param name="count">Take count.</param>
+        /// <returns>A new pattern with first n shooting events only.</returns>
+        public static IPattern<TData, TInterval> Take<TData, TInterval>(
+            this IPattern<TData, TInterval> pattern, int count)
+            where TInterval : struct
+        {
+            // TODO: put trimend into take
+            return new TrimEndPattern<TData, TInterval>(new TakePattern<TData, TInterval>(pattern, count));
+        }
+
+        /// <summary>
+        /// Create a pattern taking shooting events match predicate and corresponding intervals.
+        /// </summary>
+        /// <typeparam name="TData">Original shoot event.</typeparam>
+        /// <typeparam name="TInterval">Interval type in pattern.</typeparam>
+        /// <param name="pattern">Source pattern.</param>
+        /// <param name="predicate">Taking predicate.</param>
+        /// <returns>A new pattern with shooting events match predicate only.</returns>
+        public static IPattern<TData, TInterval> TakeWhile<TData, TInterval>(
+            this IPattern<TData, TInterval> pattern, Func<TData?, bool> predicate)
+            where TInterval : struct
+        {
+            // TODO: put trimend into takewhile
+            return new TrimEndPattern<TData, TInterval>(new TakeWhilePattern<TData, TInterval>(pattern, predicate));
+        }
+
+        /// <summary>
         /// Remove excess interval at the start of pattern.
         /// </summary>
         /// <typeparam name="TData">Original shoot event.</typeparam>
