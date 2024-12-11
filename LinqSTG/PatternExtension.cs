@@ -185,8 +185,7 @@ namespace LinqSTG
             this IPattern<TData, TInterval> pattern, int count)
             where TInterval : struct
         {
-            // TODO: put trimend into take
-            return new TrimEndPattern<TData, TInterval>(new TakePattern<TData, TInterval>(pattern, count));
+            return new TakePattern<TData, TInterval>(pattern, count);
         }
 
         /// <summary>
@@ -201,8 +200,7 @@ namespace LinqSTG
             this IPattern<TData, TInterval> pattern, Func<TData?, bool> predicate)
             where TInterval : struct
         {
-            // TODO: put trimend into takewhile
-            return new TrimEndPattern<TData, TInterval>(new TakeWhilePattern<TData, TInterval>(pattern, predicate));
+            return new TakeWhilePattern<TData, TInterval>(pattern, predicate);
         }
 
         /// <summary>
