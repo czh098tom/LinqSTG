@@ -3,9 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:rc="clr-namespace:RichCanvas;assembly=RichCanvas"
         xmlns:local="clr-namespace:LinqSTG.Demo.WPF"
+        xmlns:draw="clr-namespace:System.Drawing;assembly=netstandard"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="LinqSTG Demo" Height="450" Width="800">
     <Window.DataContext>
         <local:MainViewModel/>
     </Window.DataContext>
@@ -19,26 +21,22 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="25"/>
             </Grid.RowDefinitions>
-            <ItemsControl Grid.Row="0" ItemsSource="{Binding Points}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Ellipse Width="8" Height="8" Fill="Blue" />
+            <rc:RichItemsControl Grid.Row="0" ItemsSource="{Binding Points}"
+                                 HorizontalScrollBarVisibility="Visible"
+                                 VerticalScrollBarVisibility="Visible">
+                <rc:RichItemsControl.Resources>
+                    <DataTemplate DataType="{x:Type draw:PointF}">
+                        <Rectangle Width="8" Height="8" Fill="Blue" />
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
+                </rc:RichItemsControl.Resources>
 
-                <ItemsControl.ItemContainerStyle>
-                    <Style TargetType="ContentPresenter">
-                        <Setter Property="Canvas.Left" Value="{Binding X}" />
-                        <Setter Property="Canvas.Top" Value="{Binding Y}" />
+                <rc:RichItemsControl.ItemContainerStyle>
+                    <Style TargetType="rc:RichItemContainer">
+                        <Setter Property="Left" Value="{Binding X}" />
+                        <Setter Property="Top" Value="{Binding Y}" />
                     </Style>
-                </ItemsControl.ItemContainerStyle>
-            </ItemsControl>
+                </rc:RichItemsControl.ItemContainerStyle>
+            </rc:RichItemsControl>
             <Slider Grid.Row="1" Value="{Binding Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Minimum="0" Maximum="1200"/>
         </Grid>
         <Grid Grid.Column="1">
@@ -47,8 +45,16 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-            <TextBox Grid.Row="0" Text="{Binding PatternScript, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"/>
-            <TextBox Grid.Row="1" Text="{Binding PositionScript, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True"/>
+            <TextBox Grid.Row="0" 
+                     Text="{Binding PatternScript, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                     HorizontalScrollBarVisibility="Auto"
+                     VerticalScrollBarVisibility="Auto"
+                     AcceptsReturn="True"/>
+            <TextBox Grid.Row="1" 
+                     Text="{Binding PositionScript, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                     HorizontalScrollBarVisibility="Auto"
+                     VerticalScrollBarVisibility="Auto"
+                     AcceptsReturn="True"/>
             <Button Grid.Row="2" Content="Run" Click="Button_Click"/>
         </Grid>
     </Grid>

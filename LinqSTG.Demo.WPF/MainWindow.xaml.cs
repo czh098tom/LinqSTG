@@ -17,20 +17,9 @@ namespace LinqSTG.Demo.WPF;
 /// </summary>
 public partial class MainWindow : Window
 {
-    //public ObservableCollection<Point> Points { get; set; }
-
     public MainWindow()
     {
         InitializeComponent();
-
-        //Points = new ObservableCollection<Point>
-        //{
-        //    new Point(50, 50),
-        //    new Point(150, 100),
-        //    new Point(200, 200),
-        //};
-
-        //this.DataContext = this;
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
