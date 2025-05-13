@@ -115,6 +115,21 @@ namespace LinqSTG
         }
 
         /// <summary>
+        /// Filter the pattern by a predicate.
+        /// </summary>
+        /// <typeparam name="TData">Original shoot event.</typeparam>
+        /// <typeparam name="TInterval">Interval type in pattern.</typeparam>
+        /// <param name="pattern">Source pattern.</param>
+        /// <param name="predicate">filter function.</param>
+        /// <returns>A new pattern with event filtered.</returns>
+        public static IPattern<TData, TInterval> Where<TData, TInterval>(this IPattern<TData, TInterval> pattern,
+            Predicate<TData?> predicate)
+            where TInterval : struct
+        {
+            return new WherePattern<TData, TInterval>(pattern, predicate);
+        }
+
+        /// <summary>
         /// Concatenates a pattern to the end of the given pattern.
         /// </summary>
         /// <typeparam name="TData">Original shoot event.</typeparam>
