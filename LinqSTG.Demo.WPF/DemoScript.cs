@@ -171,5 +171,29 @@ namespace LinqSTG.Demo.WPF
                     t => new(r.x + t * Cos(r.r) * r.v, r.y + t * Sin(r.r) * r.v))
                 .Shoot(pattern);
         }
+
+        public static IEnumerable<PointPrediction> TestRandom() 
+        {
+            var randomizer = new Random(Convert.ToInt32(DateTime.Now.Ticks % (1L + int.MaxValue)));
+            var randomXY = RepeatWithInterval(times: 10, interval: 10)
+                .Select(r => (
+                    x: randomizer.NextSingle() * 100 - 50, 
+                    y: randomizer.NextSingle() * 100 - 50,
+                    v: 1f + randomizer.NextSingle() * 0.5f));
+
+            var circle = Repeat<int>(24)
+                .Select(r => r.Sample01(IntervalType.HeadClosed).MinMax(0f, 360f));
+
+            var pattern = from r1 in randomXY
+                          from r2 in circle
+                          select (x: r1.x,
+                                  y: r1.y,
+                                  r: r2,
+                                  v: r1.v);
+
+            return new PointShooter<(float x, float y, float r, float v)>(r =>
+                    t => new(r.x + t * Cos(r.r) * r.v, r.y + t * Sin(r.r) * r.v))
+                .Shoot(pattern);
+        }
     }
 }
