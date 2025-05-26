@@ -103,11 +103,11 @@ namespace LinqSTG.Demo.WPF
         {
             pointPredictions = await CSharpScript.EvaluateAsync<IEnumerable<PointPrediction>>(
                 $"{PatternScript}\n{PositionScript}", DefaultOptions);
-            pointPredictions = pointPredictions.Select(pred => new PointPrediction(t =>
+            pointPredictions = [.. pointPredictions.Select(pred => new PointPrediction(t =>
             {
                 var p = pred.PointFunc(t);
                 return new PointF(p.X, -p.Y);
-            }, pred.StartTime));
+            }, pred.StartTime))];
             UpdatePrediction();
         }
 

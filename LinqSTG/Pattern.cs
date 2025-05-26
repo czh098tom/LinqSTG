@@ -81,5 +81,18 @@ namespace LinqSTG
         {
             return new SingleIntervalPattern<TData, TInterval>(interval);
         }
+
+        /// <summary>
+        /// Create a pattern with enumerable data.
+        /// </summary>
+        /// <typeparam name="TData">Data type in pattern.</typeparam>
+        /// <typeparam name="TInterval">Interval type in pattern.</typeparam>
+        /// <param name="data">Data sequence.</param>
+        /// <returns>A pattern created.</returns>
+        public static IPattern<TData, TInterval> FromEnumerable<TData, TInterval>(this IEnumerable<TData> data)
+            where TInterval : struct
+        {
+            return new FromEnumerablePattern<TData, TInterval>(data);
+        }
     }
 }
