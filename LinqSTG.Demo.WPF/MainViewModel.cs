@@ -23,7 +23,9 @@ namespace LinqSTG.Demo.WPF
                 "LinqSTG.Pattern", 
                 "LinqSTG.Easings", 
                 "LinqSTG.Demo.WPF",
-                "LinqSTG.Demo.WPF.DegreeMaths");
+                "LinqSTG.Demo.WPF.DegreeMaths",
+                "LinqSTG.Kinematics",
+                "LinqSTG.Kinematics.Predictor");
 
         public string PatternScript
         {

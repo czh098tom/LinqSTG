@@ -5,6 +5,8 @@ using static LinqSTG.Pattern;
 using LinqSTG.Easings;
 using LinqSTG.Demo.WPF;
 using static LinqSTG.Demo.WPF.DegreeMaths;
+using LinqSTG.Kinematics;
+using static LinqSTG.Kinematics.Predictor;
 
 namespace LinqSTG.Demo.WPF
 {
@@ -120,20 +122,14 @@ namespace LinqSTG.Demo.WPF
             const int t3 = 150;
 
             return new PointShooter<(float x, float y, float r, float v)>(r =>
-                t => t switch
+                t =>
                 {
-                    < t1 => new(
-                        r.x + Cos(r.r) * r.v * (v1mul * t + 0.5f * (v2mul - v1mul) / t1 * t * t),
-                        r.y + Sin(r.r) * r.v * (v1mul * t + 0.5f * (v2mul - v1mul) / t1 * t * t)),
-                    >= t1 and < t2 => new(
-                        r.x + Cos(r.r) * r.v * ((v2mul + v1mul) * t1 / 2 + (t - t1) * v2mul),
-                        r.y + Sin(r.r) * r.v * ((v2mul + v1mul) * t1 / 2 + (t - t1) * v2mul)),
-                    >= t2 and < t3 => new(
-                        r.x + Cos(r.r) * r.v * ((v2mul + v1mul) * t1 / 2 + (t2 - t1) * v2mul + v2mul * (t - t2) + 0.5f * (v3mul - v2mul) / (t3 - t2) * (t - t2) * (t - t2)),
-                        r.y + Sin(r.r) * r.v * ((v2mul + v1mul) * t1 / 2 + (t2 - t1) * v2mul + v2mul * (t - t2) + 0.5f * (v3mul - v2mul) / (t3 - t2) * (t - t2) * (t - t2))),
-                    _ => new(
-                        r.x + Cos(r.r) * r.v * ((v2mul + v1mul) * t1 / 2 + (t2 - t1) * v2mul + (v3mul + v2mul) * (t3 - t2) / 2 + (t - t3) * v3mul),
-                        r.y + Sin(r.r) * r.v * ((v2mul + v1mul) * t1 / 2 + (t2 - t1) * v2mul + (v3mul + v2mul) * (t3 - t2) / 2 + (t - t3) * v3mul)),
+                    var v = UniformAcceleration<float, float, float, float>(v1mul, (v2mul - v1mul) / t1)
+                        .AfterTime(t1, UniformVelocity<float, float, float>(v2mul))
+                        .AfterTime(t2, UniformAcceleration<float, float, float, float>(v2mul, (v3mul - v2mul) / (t3 - t2)))
+                        .AfterTime(t3, UniformVelocity<float, float, float>(v3mul));
+                    return new(v.Select(v => r.v * v * Cos(r.r) + r.x).Invoke(t), 
+                        v.Select(v => r.v * v * Sin(r.r) + r.y).Invoke(t));
                 }).Shoot(pattern);
         }
 
