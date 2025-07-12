@@ -94,5 +94,17 @@ namespace LinqSTG
         {
             return new FromEnumerablePattern<TData, TInterval>(data);
         }
+
+        /// <summary>
+        /// Creates an empty pattern that matches no data and spans no intervals.
+        /// </summary>
+        /// <typeparam name="TData">The type of data associated with the pattern.</typeparam>
+        /// <typeparam name="TInterval">The type of interval associated with the pattern. Must be a value type.</typeparam>
+        /// <returns>An instance of an empty pattern.</returns>
+        public static IPattern<TData, TInterval> Empty<TData, TInterval>()
+            where TInterval : struct
+        {
+            return EmptyPattern<TData, TInterval>.Instance;
+        }
     }
 }
