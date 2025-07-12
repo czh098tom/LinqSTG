@@ -25,7 +25,7 @@ namespace LinqSTG.Demo.NodeNetwork.ViewModel.Nodes.Operator
             };
             InputMapper = new ValueNodeInputViewModel<Contextual<Parameter>>()
             {
-                Name = "Mapper",
+                Name = "Transformation",
             };
             OutputPattern = new ValueNodeOutputViewModel<Contextual<IPattern<Parameter, int>>>()
             {
