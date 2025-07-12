@@ -16,7 +16,7 @@ namespace LinqSTG.Demo.NodeNetwork.ViewModel.Nodes.Movement
     public class UniformVelocityMovementNode : LinqSTGNodeViewModel
     {
         public FloatValueEditorViewModel InputSpeedDirectionEditor { get; } = new FloatValueEditorViewModel();
-        public FloatValueEditorViewModel InputSpeedEditor { get; } = new FloatValueEditorViewModel();
+        public FloatValueEditorViewModel InputSpeedEditor { get; } = new FloatValueEditorViewModel() { RawValue = 3 };
         public ValueNodeInputViewModel<Contextual<float>?> InputSpeedDirection { get; }
         public ValueNodeInputViewModel<Contextual<float>?> InputSpeed { get; }
         public ValueNodeOutputViewModel<Contextual<Predictor<int, PointF>>> OutputMovement { get; }
