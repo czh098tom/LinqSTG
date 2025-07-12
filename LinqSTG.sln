@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqSTG.Demo.WPF", "LinqSTG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqSTG.Kinematics", "LinqSTG.Kinematics\LinqSTG.Kinematics.csproj", "{9CF25F3C-772E-40BA-B300-4C34DE08F35F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqSTG.Demo.NodeNetwork", "LinqSTG.Demo.NodeNetwork\LinqSTG.Demo.NodeNetwork.csproj", "{CE082799-2681-4600-9977-B165584B2DD6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{9CF25F3C-772E-40BA-B300-4C34DE08F35F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CF25F3C-772E-40BA-B300-4C34DE08F35F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CF25F3C-772E-40BA-B300-4C34DE08F35F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE082799-2681-4600-9977-B165584B2DD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE082799-2681-4600-9977-B165584B2DD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE082799-2681-4600-9977-B165584B2DD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE082799-2681-4600-9977-B165584B2DD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
