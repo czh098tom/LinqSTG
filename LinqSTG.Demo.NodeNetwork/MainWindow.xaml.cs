@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.ComponentModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,9 +17,20 @@ namespace LinqSTG.Demo.NodeNetwork
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainViewModel viewModel;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            viewModel = (DataContext as MainViewModel)!;
+            viewModel.Load();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            viewModel.Save();
         }
     }
 }

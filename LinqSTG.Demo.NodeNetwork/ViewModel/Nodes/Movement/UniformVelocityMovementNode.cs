@@ -37,9 +37,12 @@ namespace LinqSTG.Demo.NodeNetwork.ViewModel.Nodes.Movement
             {
                 Name = "Movement",
             };
-            Inputs.Add(InputSpeedDirection);
-            Inputs.Add(InputSpeed);
-            Outputs.Add(OutputMovement);
+
+            AddInput("speed_dir", InputSpeedDirection);
+            AddInput("speed", InputSpeed);
+            AddOutput("movement", OutputMovement);
+            AddEditor("speed_dir", InputSpeedDirectionEditor);
+            AddEditor("speed", InputSpeedEditor);
 
             Name = "Uniform Velocity Movement";
 

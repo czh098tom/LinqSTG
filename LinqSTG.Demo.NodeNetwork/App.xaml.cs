@@ -39,7 +39,6 @@ namespace LinqSTG.Demo.NodeNetwork
 
             Splat.Locator.CurrentMutable.Register(() => new NodeView(), typeof(IViewFor<MapPatternNode>));
             Splat.Locator.CurrentMutable.Register(() => new NodeView(), typeof(IViewFor<ExtrudePatternNode>));
-            Splat.Locator.CurrentMutable.Register(() => new NodeView(), typeof(IViewFor<MapTransformationNode>));
 
             Splat.Locator.CurrentMutable.Register(() => new NodeView(), typeof(IViewFor<RepeatWithIntervalPatternNode>));
 

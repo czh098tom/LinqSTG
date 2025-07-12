@@ -30,11 +30,12 @@ namespace LinqSTG.Demo.NodeNetwork.ViewModel.Nodes.Operator
                 Name = "Pattern",
             };
 
-            Inputs.Add(InputPattern);
-            Inputs.Add(InputSubPattern);
-            Outputs.Add(OutputPattern);
+            AddInput("pattern", InputPattern);
+            AddInput("sub_pattern", InputSubPattern);
+            AddOutput("pattern", OutputPattern);
 
             Name = "Extrude Pattern";
+
             OutputPattern.Value = InputPattern.ValueChanged
                 .CombineLatest(InputSubPattern.ValueChanged,
                     (pattern, subPattern) => Contextual.Create(dict =>

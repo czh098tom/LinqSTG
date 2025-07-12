@@ -3,7 +3,7 @@ using ReactiveUI;
 
 namespace LinqSTG.Demo.NodeNetwork.ViewModel.Editor
 {
-    public class IntegerValueEditorViewModel : ValueEditorViewModel<Contextual<int>>
+    public class IntegerValueEditorViewModel : ValueEditorViewModel<Contextual<int>>, IContextualValueEditorViewModel<int>
     {
         private static readonly Contextual<int> DefaultValue = Contextual.Create(dict => 0);
 

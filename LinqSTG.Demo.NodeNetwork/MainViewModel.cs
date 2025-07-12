@@ -1,4 +1,6 @@
 ﻿using DynamicData;
+using LinqSTG.Demo.NodeNetwork.Properties;
+using LinqSTG.Demo.NodeNetwork.Serialization;
 using LinqSTG.Demo.NodeNetwork.ViewModel;
 using LinqSTG.Demo.NodeNetwork.ViewModel.Nodes;
 using LinqSTG.Demo.NodeNetwork.ViewModel.Nodes.Data;
@@ -6,6 +8,7 @@ using LinqSTG.Demo.NodeNetwork.ViewModel.Nodes.Movement;
 using LinqSTG.Demo.NodeNetwork.ViewModel.Nodes.Operator;
 using LinqSTG.Demo.NodeNetwork.ViewModel.Nodes.Pattern;
 using LinqSTG.Demo.NodeNetwork.ViewModel.Nodes.Transformation;
+using Newtonsoft.Json;
 using NodeNetwork.Toolkit.NodeList;
 using NodeNetwork.ViewModels;
 using System;
@@ -14,6 +17,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,37 +64,36 @@ namespace LinqSTG.Demo.NodeNetwork
             shootNode = new ShootNode();
             network.Nodes.Add(shootNode);
 
-            shootNode.Result
-                .Subscribe(pred =>
+            var modifyNodes = network.Nodes
+                .Connect()
+                .ToCollection()
+                .SelectMany(c => c
+                    .OfType<ShootNode>()
+                    .Select(s => s.Result)
+                    .CombineLatest())
+                .Subscribe(ls =>
                 {
-                    pointPredictions = [.. pred.Invoke(Parameter.Empty)];
+                    pointPredictions = ls.SelectMany(pred => pred.Invoke(Parameter.Empty));
                     UpdatePrediction();
                 });
 
-            //NodeList.AddNodeType(() => new IntLiteralNode());
-            //NodeList.AddNodeType(() => new TextLiteralNode());
-            //NodeList.AddNodeType(() => new FloatLiteralNode());
-            NodeList.AddNodeType(() => new RepeatWithIntervalPatternNode());
+            NodeList.AddNodeType(() => new ShootNode());
 
-            NodeList.AddNodeType(() => new ConstantFloatNode());
-            NodeList.AddNodeType(() => new ConstantIntNode());
-            NodeList.AddNodeType(() => new ConstantStringNode());
-            NodeList.AddNodeType(() => new TakeVariableFromContextNode());
+            NodeList.AddNodeType(() => new RepeatWithIntervalPatternNode());
 
             NodeList.AddNodeType(() => new MapPatternNode());
             NodeList.AddNodeType(() => new ExtrudePatternNode());
-            //NodeList.AddNodeType(() => new MapTransformationNode());
 
             NodeList.AddNodeType(() => new UniformVelocityMovementNode());
 
             NodeList.AddNodeType(() => new SampleMinMaxNode());
             NodeList.AddNodeType(() => new MinMaxNode());
             NodeList.AddNodeType(() => new Sample01Node());
-        }
 
-        public void GeneratePredictions()
-        {
-            UpdatePrediction();
+            NodeList.AddNodeType(() => new ConstantFloatNode());
+            NodeList.AddNodeType(() => new ConstantIntNode());
+            NodeList.AddNodeType(() => new ConstantStringNode());
+            NodeList.AddNodeType(() => new TakeVariableFromContextNode());
         }
 
         private void UpdatePrediction()
@@ -103,6 +106,38 @@ namespace LinqSTG.Demo.NodeNetwork
                     var point = pred.PointFunc.Invoke(Time - pred.StartTime);
                     Points.Add(new PointF(point.X, -point.Y));
                 }
+            }
+        }
+
+        public void Save()
+        {
+            try
+            {
+                Settings.Default.Temp = JsonConvert.SerializeObject(NetworkModel.FromViewModel(network));
+                Settings.Default.Save();
+            }
+            catch (Exception)
+            {
+                Settings.Default.Temp = string.Empty;
+                Settings.Default.Save();
+            }
+        }
+
+        public void Load()
+        {
+            if (string.IsNullOrEmpty(Settings.Default.Temp))
+            {
+                return;
+            }
+            try
+            {
+                var model = JsonConvert.DeserializeObject<NetworkModel>(Settings.Default.Temp);
+                model?.ApplyToNetwork(network);
+            }
+            catch (Exception)
+            {
+                network.Connections.Clear();
+                network.Nodes.Clear();
             }
         }
 

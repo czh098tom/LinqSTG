@@ -47,11 +47,15 @@ namespace LinqSTG.Demo.NodeNetwork.ViewModel.Nodes.Pattern
             {
                 Name = "Pattern"
             };
-            Inputs.Add(InputTimes);
-            Inputs.Add(InputInterval);
-            Inputs.Add(InputIDFieldName);
-            Inputs.Add(InputTotalFieldName);
-            Outputs.Add(OutputPattern);
+
+            AddInput("times", InputTimes);
+            AddInput("interval", InputInterval);
+            AddInput("id_key", InputIDFieldName);
+            AddInput("total_key", InputTotalFieldName);
+            AddOutput("pattern", OutputPattern);
+            AddEditor("times", InputTimesEditor);
+            AddEditor("interval", InputIntervalEditor);
+
             Name = "Repeat with Interval Pattern";
 
             OutputPattern.Value = InputTimes.ValueChanged

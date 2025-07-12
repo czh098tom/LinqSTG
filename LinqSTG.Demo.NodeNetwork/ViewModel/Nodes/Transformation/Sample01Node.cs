@@ -44,11 +44,11 @@ namespace LinqSTG.Demo.NodeNetwork.ViewModel.Nodes.Transformation
                 Name = "Transformation",
             };
 
-            Inputs.Add(InputTransformation);
-            Inputs.Add(InputKeyID);
-            Inputs.Add(InputKeyTotal);
-            Inputs.Add(InputKeyTarget);
-            Outputs.Add(OutputTransformation);
+            AddInput("transformation", InputTransformation);
+            AddInput("id_key", InputKeyID);
+            AddInput("total_key", InputKeyTotal);
+            AddInput("target", InputKeyTarget);
+            AddOutput("transformation", OutputTransformation);
 
             Name = "Sample01";
 

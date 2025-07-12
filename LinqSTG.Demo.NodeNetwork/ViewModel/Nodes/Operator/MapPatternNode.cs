@@ -31,10 +31,13 @@ namespace LinqSTG.Demo.NodeNetwork.ViewModel.Nodes.Operator
             {
                 Name = "Pattern",
             };
-            Inputs.Add(InputPattern);
-            Inputs.Add(InputMapper);
-            Outputs.Add(OutputPattern);
+
+            AddInput("pattern", InputPattern);
+            AddInput("mapper", InputMapper);
+            AddOutput("pattern", OutputPattern);
+
             Name = "Map Pattern";
+
             OutputPattern.Value = InputPattern.ValueChanged
                 .CombineLatest(InputMapper.ValueChanged, 
                     (pattern, mapper) => Contextual.Create(dict =>

@@ -63,13 +63,15 @@ namespace LinqSTG.Demo.NodeNetwork.ViewModel.Nodes.Transformation
                 Name = "Transformation",
             };
 
-            Inputs.Add(InputTransformation);
-            Inputs.Add(InputKeyID);
-            Inputs.Add(InputKeyTotal);
-            Inputs.Add(InputKeyTarget);
-            Inputs.Add(InputLowerBound);
-            Inputs.Add(InpuUpperBound);
-            Outputs.Add(OutputTransformation);
+            AddInput("transformation", InputTransformation);
+            AddInput("id_key", InputKeyID);
+            AddInput("total_key", InputKeyTotal);
+            AddInput("target", InputKeyTarget);
+            AddInput("lower_bound", InputLowerBound);
+            AddInput("upper_bound", InpuUpperBound);
+            AddOutput("transformation", OutputTransformation);
+            AddEditor("lower_bound", InputLowerBoundEditor);
+            AddEditor("upper_bound", InpuUpperBoundEditor);
 
             Name = "Sample MinMax";
 

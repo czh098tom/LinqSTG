@@ -34,8 +34,8 @@ namespace LinqSTG.Demo.NodeNetwork.ViewModel.Nodes
                 Name = "Movement",
             };
 
-            Inputs.Add(InputPattern);
-            Inputs.Add(InputMovement);
+            AddInput("pattern", InputPattern);
+            AddInput("movement", InputMovement);
 
             Name = "Shoot";
 

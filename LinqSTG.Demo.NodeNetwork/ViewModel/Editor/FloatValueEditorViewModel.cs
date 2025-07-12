@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LinqSTG.Demo.NodeNetwork.ViewModel.Editor
 {
-    public class FloatValueEditorViewModel : ValueEditorViewModel<Contextual<float>>
+    public class FloatValueEditorViewModel : ValueEditorViewModel<Contextual<float>>, IContextualValueEditorViewModel<float>
     {
         private static readonly Contextual<float> DefaultValue = Contextual.Create(dict => 0f);
 

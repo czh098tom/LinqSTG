@@ -28,8 +28,9 @@ namespace LinqSTG.Demo.NodeNetwork.ViewModel.Nodes.Data
             {
                 Name = "Value",
             };
-            Inputs.Add(InputValue);
-            Outputs.Add(OutputValue);
+
+            AddInput("key", InputValue);
+            AddOutput("value", OutputValue);
 
             Name = "Take Variable";
 

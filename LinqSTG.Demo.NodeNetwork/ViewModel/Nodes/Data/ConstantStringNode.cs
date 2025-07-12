@@ -23,7 +23,9 @@ namespace LinqSTG.Demo.NodeNetwork.ViewModel.Nodes.Data
                 Editor = ValueEditor,
                 Value = ValueEditor.ValueChanged,
             };
-            Outputs.Add(OutputValue);
+
+            AddOutput("value", OutputValue);
+            AddEditor("value", ValueEditor);
 
             Name = "String";
         }
