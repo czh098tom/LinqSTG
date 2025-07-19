@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqSTG.Demo.WPF", "LinqSTG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqSTG.Kinematics", "LinqSTG.Kinematics\LinqSTG.Kinematics.csproj", "{9CF25F3C-772E-40BA-B300-4C34DE08F35F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqSTG.Demo.NodeNetwork", "LinqSTG.Demo.NodeNetwork\LinqSTG.Demo.NodeNetwork.csproj", "{CE082799-2681-4600-9977-B165584B2DD6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqSTG.Demo.NodeGraph", "LinqSTG.Demo.NodeGraph\LinqSTG.Demo.NodeGraph.csproj", "{CE082799-2681-4600-9977-B165584B2DD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
