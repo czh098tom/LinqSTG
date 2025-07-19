@@ -41,7 +41,7 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes
 
             Name = "Shoot";
 
-            CanBeRemovedByUser = false;
+            TitleColor = NodeColors.Shoot;
 
             Result = InputPattern.ValueChanged
                 .CombineLatest(InputMovement.ValueChanged, (pattern, movement)

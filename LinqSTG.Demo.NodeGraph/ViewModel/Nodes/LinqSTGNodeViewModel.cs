@@ -5,11 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes
 {
     public class LinqSTGNodeViewModel : NodeViewModel
     {
+        public static readonly Color DefaultTitleColor = Color.FromArgb(0xFF, 0x6B, 0xA0, 0xC7);
+
         private readonly Dictionary<string, NodeEndpointEditorViewModel> editorDict = [];
         private readonly Dictionary<string, NodeInputViewModel> inputDict = [];
         private readonly Dictionary<string, NodeOutputViewModel> outputDict = [];
@@ -17,6 +20,8 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes
         public IReadOnlyDictionary<string, NodeEndpointEditorViewModel> EditorDict => editorDict;
         public IReadOnlyDictionary<string, NodeInputViewModel> InputDict => inputDict;
         public IReadOnlyDictionary<string, NodeOutputViewModel> OutputDict => outputDict;
+
+        public Color TitleColor { get; protected init; } = DefaultTitleColor;
 
         public void AddOutput(string name, NodeOutputViewModel output)
         {

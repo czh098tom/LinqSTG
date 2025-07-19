@@ -77,6 +77,8 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Transformation
 
             Name = "Sample MinMax";
 
+            TitleColor = NodeColors.Transformation;
+
             OutputTransformation.Value = InputTransformation.ValueChanged
                 .CombineLatest(InputKeyID.ValueChanged, InputKeyTotal.ValueChanged, InputKeyTarget.ValueChanged,
                     InputLowerBound.ValueChanged, InpuUpperBound.ValueChanged,

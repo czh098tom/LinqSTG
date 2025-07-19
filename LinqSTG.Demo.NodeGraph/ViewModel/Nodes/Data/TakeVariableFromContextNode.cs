@@ -36,6 +36,8 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Data
 
             Name = "Take Variable";
 
+            TitleColor = NodeColors.Data;
+
             OutputValue.Value = InputValue.ValueChanged
                 .Select(s => Contextual.Create(dict => dict.GetValueOrDefault(s?.Invoke(dict) ?? string.Empty, 0f)));
         }

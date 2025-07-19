@@ -54,6 +54,8 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Transformation
 
             Name = "Sample01";
 
+            TitleColor = NodeColors.Transformation;
+
             OutputTransformation.Value = InputTransformation.ValueChanged
                 .CombineLatest(InputKeyID.ValueChanged, InputKeyTotal.ValueChanged, InputKeyTarget.ValueChanged,
                     (trans, id, total, target) => Contextual.Create(dict =>

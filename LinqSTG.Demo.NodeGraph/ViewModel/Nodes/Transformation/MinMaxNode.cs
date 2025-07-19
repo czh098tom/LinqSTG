@@ -71,6 +71,8 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Transformation
 
             Name = "MinMax";
 
+            TitleColor = NodeColors.Transformation;
+
             OutputTransformation.Value = InputTransformation.ValueChanged
                 .CombineLatest(InputKeyInput.ValueChanged, InputKeyTarget.ValueChanged, InputLowerBound.ValueChanged, InpuUpperBound.ValueChanged,
                     (trans, input, target, lower, upper) => Contextual.Create(dict =>

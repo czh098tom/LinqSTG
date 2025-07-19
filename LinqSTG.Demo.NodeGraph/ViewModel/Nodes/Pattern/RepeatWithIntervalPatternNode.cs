@@ -60,6 +60,8 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Pattern
 
             Name = "Repeat with Interval Pattern";
 
+            TitleColor = NodeColors.Pattern;
+
             OutputPattern.Value = InputTimes.ValueChanged
                 .CombineLatest(InputInterval.ValueChanged, InputIDFieldName.ValueChanged, InputTotalFieldName.ValueChanged,
                     (times, interval, id, total) => Contextual.Create(dict => 

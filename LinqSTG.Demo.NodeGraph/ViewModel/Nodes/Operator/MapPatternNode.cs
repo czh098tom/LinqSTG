@@ -40,6 +40,8 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Operator
 
             Name = "Map Pattern";
 
+            TitleColor = NodeColors.PatternOperator;
+
             OutputPattern.Value = InputPattern.ValueChanged
                 .CombineLatest(InputMapper.ValueChanged, 
                     (pattern, mapper) => Contextual.Create(dict =>

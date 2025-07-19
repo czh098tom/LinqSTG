@@ -38,6 +38,8 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Operator
 
             Name = "Extrude Pattern";
 
+            TitleColor = NodeColors.PatternOperator;
+
             OutputPattern.Value = InputPattern.ValueChanged
                 .CombineLatest(InputSubPattern.ValueChanged,
                     (pattern, subPattern) => Contextual.Create(dict =>

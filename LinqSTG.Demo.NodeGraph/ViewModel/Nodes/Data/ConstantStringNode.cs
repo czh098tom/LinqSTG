@@ -30,6 +30,8 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Data
             AddEditor("value", ValueEditor);
 
             Name = "String";
+
+            TitleColor = NodeColors.Data;
         }
     }
 }

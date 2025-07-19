@@ -48,6 +48,8 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Movement
 
             Name = "Uniform Velocity Movement";
 
+            TitleColor = NodeColors.Movement;
+
             OutputMovement.Value = InputSpeed.ValueChanged
                 .CombineLatest(InputSpeedDirection.ValueChanged, 
                     (speed, direction) => Contextual.Create(dict => new Predictor<int, PointF>(t => new PointF(
