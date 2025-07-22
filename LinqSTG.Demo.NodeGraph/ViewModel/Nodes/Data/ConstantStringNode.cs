@@ -20,11 +20,7 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Data
 
         public ConstantStringNode()
         {
-            OutputValue = new ValueNodeOutputViewModel<Contextual<string>>()
-            {
-                Editor = ValueEditor,
-                Value = ValueEditor.ValueChanged,
-            };
+            OutputValue = LinqSTGNodeOutputViewModel.String(editor: ValueEditor);
 
             AddOutput("value", OutputValue);
             AddEditor("value", ValueEditor);

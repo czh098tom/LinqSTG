@@ -17,19 +17,13 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Data
 {
     public class TakeVariableFromContextNode : LinqSTGNodeViewModel
     {
-        public ValueNodeInputViewModel<Contextual<string>> InputValue { get; }
+        public ValueNodeInputViewModel<Contextual<string>?> InputValue { get; }
         public ValueNodeOutputViewModel<Contextual<float>> OutputValue { get; }
 
         public TakeVariableFromContextNode()
         {
-            InputValue = new ValueNodeInputViewModel<Contextual<string>>()
-            {
-                Name = "Key",
-            };
-            OutputValue = new ValueNodeOutputViewModel<Contextual<float>>()
-            {
-                Name = "Value",
-            };
+            InputValue = LinqSTGNodeInputViewModel.String("Key");
+            OutputValue = LinqSTGNodeOutputViewModel.Float("Value");
 
             AddInput("key", InputValue);
             AddOutput("value", OutputValue);

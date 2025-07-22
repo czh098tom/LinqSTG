@@ -13,24 +13,15 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Operator
 {
     public class ExtrudePatternNode : LinqSTGNodeViewModel
     {
-        public ValueNodeInputViewModel<Contextual<IPattern<Parameter, int>>> InputPattern { get; }
-        public ValueNodeInputViewModel<Contextual<IPattern<Parameter, int>>> InputSubPattern { get; }
+        public ValueNodeInputViewModel<Contextual<IPattern<Parameter, int>>?> InputPattern { get; }
+        public ValueNodeInputViewModel<Contextual<IPattern<Parameter, int>>?> InputSubPattern { get; }
         public ValueNodeOutputViewModel<Contextual<IPattern<Parameter, int>>> OutputPattern { get; }
 
         public ExtrudePatternNode()
         {
-            InputPattern = new ValueNodeInputViewModel<Contextual<IPattern<Parameter, int>>>()
-            {
-                Name = "Pattern",
-            };
-            InputSubPattern = new ValueNodeInputViewModel<Contextual<IPattern<Parameter, int>>>()
-            {
-                Name = "Sub Pattern",
-            };
-            OutputPattern = new ValueNodeOutputViewModel<Contextual<IPattern<Parameter, int>>>()
-            {
-                Name = "Pattern",
-            };
+            InputPattern = LinqSTGNodeInputViewModel.Pattern("Pattern");
+            InputSubPattern = LinqSTGNodeInputViewModel.Pattern("Sub Pattern");
+            OutputPattern = LinqSTGNodeOutputViewModel.Pattern("Pattern");
 
             AddInput("pattern", InputPattern);
             AddInput("sub_pattern", InputSubPattern);

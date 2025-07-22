@@ -27,28 +27,11 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Pattern
 
         public RepeatWithIntervalPatternNode()
         {
-            InputTimes = new ValueNodeInputViewModel<Contextual<int>?>()
-            {
-                Name = "Times",
-                Editor = InputTimesEditor,
-            };
-            InputInterval = new ValueNodeInputViewModel<Contextual<int>?>()
-            {
-                Name = "Interval",
-                Editor = InputIntervalEditor,
-            };
-            InputIDFieldName = new ValueNodeInputViewModel<Contextual<string>?>()
-            {
-                Name = "ID Key",
-            };
-            InputTotalFieldName = new ValueNodeInputViewModel<Contextual<string>?>()
-            {
-                Name = "Total Key",
-            };
-            OutputPattern = new ValueNodeOutputViewModel<Contextual<IPattern<Parameter, int>>>()
-            {
-                Name = "Pattern"
-            };
+            InputTimes = LinqSTGNodeInputViewModel.Int("Times", InputTimesEditor);
+            InputInterval = LinqSTGNodeInputViewModel.Int("Interval", InputIntervalEditor);
+            InputIDFieldName = LinqSTGNodeInputViewModel.String("ID Key");
+            InputTotalFieldName = LinqSTGNodeInputViewModel.String("Total Key");
+            OutputPattern = LinqSTGNodeOutputViewModel.Pattern("Pattern");
 
             AddInput("times", InputTimes);
             AddInput("interval", InputInterval);

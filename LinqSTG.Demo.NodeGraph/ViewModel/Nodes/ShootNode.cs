@@ -26,15 +26,8 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes
 
         public ShootNode()
         {
-            InputPattern = new ValueNodeInputViewModel<Contextual<IPattern<Parameter, int>>?>()
-            {
-                Name = "Pattern",
-            };
-
-            InputMovement = new ValueNodeInputViewModel<Contextual<Predictor<int, PointF>>?>()
-            {
-                Name = "Movement",
-            };
+            InputPattern = LinqSTGNodeInputViewModel.Pattern("Pattern");
+            InputMovement = LinqSTGNodeInputViewModel.Movement("Movement");
 
             AddInput("pattern", InputPattern);
             AddInput("movement", InputMovement);

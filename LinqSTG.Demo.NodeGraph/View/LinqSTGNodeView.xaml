@@ -5,66 +5,124 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LinqSTG.Demo.NodeGraph.View"
              xmlns:views="clr-namespace:NodeNetwork.Views;assembly=NodeNetwork"
+             xmlns:viewModels="clr-namespace:NodeNetwork.ViewModels;assembly=NodeNetwork"
              xmlns:reactiveUi="http://reactiveui.net"
              xmlns:controls="clr-namespace:NodeNetwork.Views.Controls;assembly=NodeNetwork"
+             xmlns:wpf="clr-namespace:NodeNetwork.Utilities.WPF;assembly=NodeNetwork"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <ControlTemplate x:Key="ArrowTemplate" TargetType="controls:ArrowToggleButton">
-            <Viewbox StretchDirection="Both" Stretch="Uniform">
-                <Grid Width="20" Height="20">
-                    <Path Width="20" Height="12" Stretch="Fill" Stroke="#AAA" Fill="Transparent" StrokeThickness="3" Data="M 0,0 L 10,9.5 L 20,0 ">
-                        <Path.Style>
-                            <Style TargetType="Path">
+        <ResourceDictionary>
+            <ControlTemplate x:Key="ArrowTemplate" TargetType="controls:ArrowToggleButton">
+                <Viewbox StretchDirection="Both" Stretch="Uniform">
+                    <Grid Width="20" Height="20">
+                        <Path Width="20" Height="12" Stretch="Fill" Stroke="#AAA" Fill="Transparent" StrokeThickness="3" Data="M 0,0 L 10,9.5 L 20,0 ">
+                            <Path.Style>
+                                <Style TargetType="Path">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=button}" Value="True">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="(Path.Stroke).(SolidColorBrush.Color)" To="#FFF" Duration="0:0:0.1"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation Storyboard.TargetProperty="(Path.Stroke).(SolidColorBrush.Color)" To="#AAA" Duration="0:0:0.1"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Path.Style>
+                        </Path>
+                        <Grid.RenderTransform>
+                            <RotateTransform CenterX="10" CenterY="10"/>
+                        </Grid.RenderTransform>
+                        <Grid.Style>
+                            <Style TargetType="Grid">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsChecked, ElementName=button}" Value="True">
                                         <DataTrigger.EnterActions>
                                             <BeginStoryboard>
                                                 <Storyboard>
-                                                    <ColorAnimation Storyboard.TargetProperty="(Path.Stroke).(SolidColorBrush.Color)" To="#FFF" Duration="0:0:0.1"/>
+                                                    <DoubleAnimation Storyboard.TargetProperty="(Grid.RenderTransform).(RotateTransform.Angle)" To="-90" Duration="0:0:0.1"/>
                                                 </Storyboard>
                                             </BeginStoryboard>
                                         </DataTrigger.EnterActions>
                                         <DataTrigger.ExitActions>
                                             <BeginStoryboard>
                                                 <Storyboard>
-                                                    <ColorAnimation Storyboard.TargetProperty="(Path.Stroke).(SolidColorBrush.Color)" To="#AAA" Duration="0:0:0.1"/>
+                                                    <DoubleAnimation Storyboard.TargetProperty="(Grid.RenderTransform).(RotateTransform.Angle)" To="0" Duration="0:0:0.1"/>
                                                 </Storyboard>
                                             </BeginStoryboard>
                                         </DataTrigger.ExitActions>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </Path.Style>
-                    </Path>
-                    <Grid.RenderTransform>
-                        <RotateTransform CenterX="10" CenterY="10"/>
-                    </Grid.RenderTransform>
-                    <Grid.Style>
-                        <Style TargetType="Grid">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsChecked, ElementName=button}" Value="True">
-                                    <DataTrigger.EnterActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetProperty="(Grid.RenderTransform).(RotateTransform.Angle)" To="-90" Duration="0:0:0.1"/>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </DataTrigger.EnterActions>
-                                    <DataTrigger.ExitActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <DoubleAnimation Storyboard.TargetProperty="(Grid.RenderTransform).(RotateTransform.Angle)" To="0" Duration="0:0:0.1"/>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </DataTrigger.ExitActions>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Grid.Style>
+                        </Grid.Style>
+                    </Grid>
+                </Viewbox>
+            </ControlTemplate>
+
+            <wpf:NullVisibilityConverter x:Key="NullConverter"/>
+            
+            <ControlTemplate x:Key="LeftAlignedEndpoint">
+                <Grid Margin="10,0,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center">
+                        <Image x:Name="Icon" MaxWidth="20" MaxHeight="20" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,5,0" Visibility="{Binding Icon, Mode=OneWay, Converter={StaticResource NullConverter}}"/>
+                        <TextBlock x:Name="NameLabel" TextTrimming="CharacterEllipsis" FontSize="14" Width="auto" Foreground="White" VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <reactiveUi:ViewModelViewHost x:Name="EndpointHost" Grid.Column="0" Grid.Row="0" Margin="0,4.9,10,4.9" Width="20" Height="20" 
+                                          HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsTabStop="False"/>
+
+                    <reactiveUi:ViewModelViewHost x:Name="EditorHost" Grid.Column="1" VerticalContentAlignment="Center" IsTabStop="False"/>
                 </Grid>
-            </Viewbox>
-        </ControlTemplate>
+            </ControlTemplate>
+
+            <ControlTemplate x:Key="RightAlignedEndpoint">
+                <Grid Margin="0,0,10,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right">
+                        <TextBlock x:Name="NameLabel" TextTrimming="CharacterEllipsis" FontSize="14" Width="auto" Foreground="White" VerticalAlignment="Center"/>
+                        <Image x:Name="Icon" MaxWidth="20" MaxHeight="20" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" Visibility="{Binding Icon, Mode=OneWay, Converter={StaticResource NullConverter}}"/>
+                    </StackPanel>
+
+                    <reactiveUi:ViewModelViewHost x:Name="EndpointHost" Grid.Column="2" Grid.Row="0" Margin="10,4.9,0,4.9" Width="20" Height="20" 
+                                          HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsTabStop="False"/>
+
+                    <reactiveUi:ViewModelViewHost x:Name="EditorHost" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Right" IsTabStop="False"/>
+                </Grid>
+            </ControlTemplate>
+
+            <Style TargetType="Button">
+                <Setter Property="Background" Value="#FF740F0F"/>
+            </Style>
+        </ResourceDictionary>
     </UserControl.Resources>
     <views:NodeView x:Name="NodeView" TitleFontSize="16" FontFamily="Arial" >
         <views:NodeView.Style>
@@ -72,8 +130,8 @@
                 <Setter Property="Background">
                     <Setter.Value>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                            <GradientStop Offset="0.0" Color="#FF202020" />
-                            <GradientStop Offset="1.0" Color="Black" />
+                            <GradientStop Offset="0.0" Color="#DF202020" />
+                            <GradientStop Offset="1.0" Color="#DF000000" />
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
@@ -250,7 +308,25 @@
                                                     </ItemsControl.Style>
                                                     <ItemsControl.ItemTemplate>
                                                         <DataTemplate DataType="viewModels:NodeInputViewModel">
-                                                            <reactiveUi:ViewModelViewHost ViewModel="{Binding}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsTabStop="False"/>
+                                                            <reactiveUi:ViewModelViewHost ViewModel="{Binding}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsTabStop="False">
+                                                                <reactiveUi:ViewModelViewHost.Resources>
+                                                                    <Style TargetType="views:NodeInputView">
+                                                                        <Setter Property="IsTabStop" Value="False"/>
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding Path=PortPosition}" Value="{x:Static viewModels:PortPosition.Left}">
+                                                                                <DataTrigger.Setters>
+                                                                                    <Setter Property="Template" Value="{StaticResource LeftAlignedEndpoint}"/>
+                                                                                </DataTrigger.Setters>
+                                                                            </DataTrigger>
+                                                                            <DataTrigger Binding="{Binding Path=PortPosition}" Value="{x:Static viewModels:PortPosition.Right}">
+                                                                                <DataTrigger.Setters>
+                                                                                    <Setter Property="Template" Value="{StaticResource RightAlignedEndpoint}"/>
+                                                                                </DataTrigger.Setters>
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </reactiveUi:ViewModelViewHost.Resources>
+                                                            </reactiveUi:ViewModelViewHost>
                                                         </DataTemplate>
                                                     </ItemsControl.ItemTemplate>
                                                 </ItemsControl>
@@ -270,7 +346,25 @@
                                                     </ItemsControl.Style>
                                                     <ItemsControl.ItemTemplate>
                                                         <DataTemplate DataType="viewModels:NodeOutputViewModel">
-                                                            <reactiveUi:ViewModelViewHost ViewModel="{Binding}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsTabStop="False"/>
+                                                            <reactiveUi:ViewModelViewHost ViewModel="{Binding}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsTabStop="False">
+                                                                <reactiveUi:ViewModelViewHost.Resources>
+                                                                    <Style TargetType="views:NodeOutputView">
+                                                                        <Setter Property="IsTabStop" Value="False"/>
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding Path=PortPosition}" Value="{x:Static viewModels:PortPosition.Left}">
+                                                                                <DataTrigger.Setters>
+                                                                                    <Setter Property="Template" Value="{StaticResource LeftAlignedEndpoint}"/>
+                                                                                </DataTrigger.Setters>
+                                                                            </DataTrigger>
+                                                                            <DataTrigger Binding="{Binding Path=PortPosition}" Value="{x:Static viewModels:PortPosition.Right}">
+                                                                                <DataTrigger.Setters>
+                                                                                    <Setter Property="Template" Value="{StaticResource RightAlignedEndpoint}"/>
+                                                                                </DataTrigger.Setters>
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </reactiveUi:ViewModelViewHost.Resources>
+                                                            </reactiveUi:ViewModelViewHost>
                                                         </DataTemplate>
                                                     </ItemsControl.ItemTemplate>
                                                 </ItemsControl>

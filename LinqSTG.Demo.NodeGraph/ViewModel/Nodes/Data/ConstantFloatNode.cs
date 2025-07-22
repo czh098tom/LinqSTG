@@ -21,11 +21,7 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Data
 
         public ConstantFloatNode()
         {
-            OutputValue = new ValueNodeOutputViewModel<Contextual<float>>()
-            {
-                Editor = ValueEditor,
-                Value = ValueEditor.ValueChanged,
-            };
+            OutputValue = LinqSTGNodeOutputViewModel.Float(editor: ValueEditor);
 
             AddOutput("value", OutputValue);
             AddEditor("value", ValueEditor);

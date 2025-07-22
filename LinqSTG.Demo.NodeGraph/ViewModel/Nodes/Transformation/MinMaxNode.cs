@@ -27,38 +27,12 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Transformation
 
         public MinMaxNode()
         {
-            InputTransformation = new ValueNodeInputViewModel<Contextual<Parameter>?>()
-            {
-                Name = "Transformation",
-            };
-
-            InputKeyInput = new ValueNodeInputViewModel<Contextual<string>?>()
-            {
-                Name = "Input Key",
-            };
-
-            InputKeyTarget = new ValueNodeInputViewModel<Contextual<string>?>()
-            {
-                Name = "Target Key",
-            };
-
-            InputLowerBound = new ValueNodeInputViewModel<Contextual<float>?>()
-            {
-                Name = "Lower Bound",
-                Editor = InputLowerBoundEditor,
-            };
-
-            InpuUpperBound = new ValueNodeInputViewModel<Contextual<float>?>()
-            {
-                Name = "Upper Bound",
-                Editor = InpuUpperBoundEditor,
-            };
-
-            OutputTransformation = new ValueNodeOutputViewModel<Contextual<Parameter>>()
-            {
-                Name = "Transformation",
-            };
-
+            InputTransformation = LinqSTGNodeInputViewModel.Transformation("Transformation");
+            InputKeyInput = LinqSTGNodeInputViewModel.String("Input Key");
+            InputKeyTarget = LinqSTGNodeInputViewModel.String("Target Key");
+            InputLowerBound = LinqSTGNodeInputViewModel.Float("Lower Bound", InputLowerBoundEditor);
+            InpuUpperBound = LinqSTGNodeInputViewModel.Float("Upper Bound", InpuUpperBoundEditor);
+            OutputTransformation = LinqSTGNodeOutputViewModel.Transformation("Transformation");
 
             AddInput("transformation", InputTransformation);
             AddInput("input_key", InputKeyInput);

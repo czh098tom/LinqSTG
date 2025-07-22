@@ -13,7 +13,7 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Transformation
 {
     public class Sample01Node : LinqSTGNodeViewModel
     {
-        public ValueNodeInputViewModel<Contextual<Parameter>> InputTransformation { get; }
+        public ValueNodeInputViewModel<Contextual<Parameter>?> InputTransformation { get; }
         public ValueNodeInputViewModel<Contextual<string>?> InputKeyID { get; }
         public ValueNodeInputViewModel<Contextual<string>?> InputKeyTotal { get; }
         public ValueNodeInputViewModel<Contextual<string>?> InputKeyTarget { get; }
@@ -21,30 +21,11 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Transformation
 
         public Sample01Node()
         {
-            InputTransformation = new ValueNodeInputViewModel<Contextual<Parameter>>()
-            {
-                Name = "Transformation",
-            };
-
-            InputKeyID = new ValueNodeInputViewModel<Contextual<string>?>()
-            {
-                Name = "ID Key",
-            };
-
-            InputKeyTotal = new ValueNodeInputViewModel<Contextual<string>?>()
-            {
-                Name = "Total Key",
-            };
-
-            InputKeyTarget = new ValueNodeInputViewModel<Contextual<string>?>()
-            {
-                Name = "Target Key",
-            };
-
-            OutputTransformation = new ValueNodeOutputViewModel<Contextual<Parameter>>()
-            {
-                Name = "Transformation",
-            };
+            InputTransformation = LinqSTGNodeInputViewModel.Transformation("Transformation");
+            InputKeyID = LinqSTGNodeInputViewModel.String("ID Key");
+            InputKeyTotal = LinqSTGNodeInputViewModel.String("Total Key");
+            InputKeyTarget = LinqSTGNodeInputViewModel.String("Target Key");
+            OutputTransformation = LinqSTGNodeOutputViewModel.Transformation("Transformation");
 
             AddInput("transformation", InputTransformation);
             AddInput("id_key", InputKeyID);

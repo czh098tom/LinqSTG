@@ -25,20 +25,9 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Movement
 
         public UniformVelocityMovementNode()
         {
-            InputSpeedDirection = new ValueNodeInputViewModel<Contextual<float>?>()
-            {
-                Name = "Direction",
-                Editor = InputSpeedDirectionEditor,
-            };
-            InputSpeed = new ValueNodeInputViewModel<Contextual<float>?>()
-            {
-                Name = "Speed",
-                Editor = InputSpeedEditor,
-            };
-            OutputMovement = new ValueNodeOutputViewModel<Contextual<Predictor<int, PointF>>>()
-            {
-                Name = "Movement",
-            };
+            InputSpeedDirection = LinqSTGNodeInputViewModel.Float("Direction", InputSpeedDirectionEditor);
+            InputSpeed = LinqSTGNodeInputViewModel.Float("Speed", InputSpeedEditor);
+            OutputMovement = LinqSTGNodeOutputViewModel.Movement("Movement");
 
             AddInput("speed_dir", InputSpeedDirection);
             AddInput("speed", InputSpeed);

@@ -15,24 +15,15 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Operator
     {
         private static readonly Contextual<Parameter> DefaultMapper = dict => new(dict);
 
-        public ValueNodeInputViewModel<Contextual<IPattern<Parameter, int>>> InputPattern { get; }
-        public ValueNodeInputViewModel<Contextual<Parameter>> InputMapper { get; }
+        public ValueNodeInputViewModel<Contextual<IPattern<Parameter, int>>?> InputPattern { get; }
+        public ValueNodeInputViewModel<Contextual<Parameter>?> InputMapper { get; }
         public ValueNodeOutputViewModel<Contextual<IPattern<Parameter, int>>> OutputPattern { get; }
 
         public MapPatternNode()
         {
-            InputPattern = new ValueNodeInputViewModel<Contextual<IPattern<Parameter, int>>>()
-            {
-                Name = "Pattern",
-            };
-            InputMapper = new ValueNodeInputViewModel<Contextual<Parameter>>()
-            {
-                Name = "Transformation",
-            };
-            OutputPattern = new ValueNodeOutputViewModel<Contextual<IPattern<Parameter, int>>>()
-            {
-                Name = "Pattern",
-            };
+            InputPattern = LinqSTGNodeInputViewModel.Pattern("Pattern");
+            InputMapper = LinqSTGNodeInputViewModel.Transformation("Transformation");
+            OutputPattern = LinqSTGNodeOutputViewModel.Pattern("Pattern");
 
             AddInput("pattern", InputPattern);
             AddInput("mapper", InputMapper);
