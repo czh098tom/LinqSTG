@@ -1,4 +1,5 @@
 ﻿using DynamicData;
+using LinqSTG.Demo.NodeGraph.ViewModel;
 using LinqSTG.Demo.NodeGraph.ViewModel.Nodes;
 using NodeNetwork.ViewModels;
 using System;
@@ -68,7 +69,7 @@ namespace LinqSTG.Demo.NodeGraph.Serialization
                 }
                 var sourcePort = sourceNode.OutputDict[connectionModel.SourcePortName];
                 var targetPort = targetNode.InputDict[connectionModel.TargetPortName];
-                network.Connections.Add(new(network, targetPort, sourcePort));
+                network.Connections.Add(new LinqSTGConnectionViewModel(network, targetPort, sourcePort));
             }
         }
     }

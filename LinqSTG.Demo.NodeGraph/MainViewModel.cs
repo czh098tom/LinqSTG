@@ -64,6 +64,7 @@ namespace LinqSTG.Demo.NodeGraph
         {
             shootNode = new ShootNode();
             network.Nodes.Add(shootNode);
+            network.ConnectionFactory = (input, output) => new LinqSTGConnectionViewModel(network, input, output);
 
             var modifyNodes = network.Nodes
                 .Connect()

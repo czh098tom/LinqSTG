@@ -118,10 +118,6 @@
                     <reactiveUi:ViewModelViewHost x:Name="EditorHost" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" HorizontalAlignment="Right" IsTabStop="False"/>
                 </Grid>
             </ControlTemplate>
-
-            <Style TargetType="Button">
-                <Setter Property="Background" Value="#FF740F0F"/>
-            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <views:NodeView x:Name="NodeView" TitleFontSize="16" FontFamily="Arial" >

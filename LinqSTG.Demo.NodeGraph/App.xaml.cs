@@ -14,6 +14,7 @@ using ReactiveUI;
 using System.Configuration;
 using System.Data;
 using System.Windows;
+using LinqSTG.Demo.NodeGraph.ViewModel;
 
 namespace LinqSTG.Demo.NodeGraph
 {
@@ -32,6 +33,7 @@ namespace LinqSTG.Demo.NodeGraph
             Splat.Locator.CurrentMutable.Register(() => new FloatValueEditorView(), typeof(IViewFor<FloatValueEditorViewModel>));
 
             Splat.Locator.CurrentMutable.Register(() => new LinqSTGPortView(), typeof(IViewFor<LinqSTGPortViewModel>));
+            Splat.Locator.CurrentMutable.Register(() => new LinqSTGConnectionView(), typeof(IViewFor<LinqSTGConnectionViewModel>));
 
             Splat.Locator.CurrentMutable.Register(() => new LinqSTGNodeView(), typeof(IViewFor<ShootNode>));
 

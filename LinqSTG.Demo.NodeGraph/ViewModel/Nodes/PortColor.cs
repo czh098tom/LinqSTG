@@ -12,8 +12,8 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes
         public static readonly Color String = Color.FromArgb(0xFF, 0x4D, 0xB0, 0xB0);
         public static readonly Color Int = Color.FromArgb(0xFF, 0x4D, 0xB0, 0xB0);
         public static readonly Color Float = Color.FromArgb(0xFF, 0x4D, 0xB0, 0xB0);
-        public static readonly Color Transformation = Color.FromArgb(0xFF, 0x0F, 0x74, 0x0F);
-        public static readonly Color Pattern = Color.FromArgb(0xFF, 0x74, 0x0F, 0x0F);
-        public static readonly Color Movement = Color.FromArgb(0xFF, 0x0F, 0x0F, 0x74);
+        public static readonly Color Transformation = Color.FromArgb(0xFF, 0x1C, 0xC9, 0x1C);
+        public static readonly Color Pattern = Color.FromArgb(0xFF, 0xC9, 0x1C, 0x1C);
+        public static readonly Color Movement = Color.FromArgb(0xFF, 0x1C, 0x1C, 0xC9);
     }
 }

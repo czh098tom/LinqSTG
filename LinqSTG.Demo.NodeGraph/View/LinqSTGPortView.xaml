@@ -77,7 +77,7 @@
                                 </VisualStateManager.VisualStateGroups>
                                 <Rectangle Fill="#00000000"/>
                                 <Ellipse Width="10" Height="10" Name="RegularEllipse" StrokeThickness="1" Stroke="{TemplateBinding RegularStroke}" Fill="{TemplateBinding RegularFill}"/>
-                                <Ellipse Width="10" Height="10" Name="ConnectedEllipse" StrokeThickness="1" Stroke="{TemplateBinding ConnectedStroke}" Fill="{TemplateBinding ConnectedFill}"/>
+                                <Ellipse Width="5" Height="5" Name="ConnectedEllipse" StrokeThickness="1" Stroke="{TemplateBinding ConnectedStroke}" Fill="{TemplateBinding ConnectedFill}"/>
                                 <Ellipse Width="10" Height="10" Name="ErrorEllipse" StrokeThickness="1" Stroke="{TemplateBinding ErrorStroke}" Fill="{TemplateBinding ErrorFill}"/>
                                 <Ellipse Width="10" Height="10" Name="HighlightEllipse" StrokeThickness="1" Stroke="{TemplateBinding HighlightStroke}" Fill="{TemplateBinding HighlightFill}"/>
                             </controls:FillPanel>
