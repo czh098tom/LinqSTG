@@ -6,7 +6,6 @@ using LinqSTG.Demo.NodeGraph.ViewModel.Nodes;
 using LinqSTG.Demo.NodeGraph.Properties;
 using LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Data;
 using LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Movement;
-using LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Operator;
 using LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Pattern;
 using LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Transformation;
 using Newtonsoft.Json;
@@ -22,6 +21,9 @@ using System.Reactive.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using LinqSTG.Demo.NodeGraph.ViewModel.Nodes.PatternOperator;
+using LinqSTG.Demo.NodeGraph.ViewModel.Nodes.IntrinsicOperator;
+using LinqSTG.Demo.NodeGraph.ViewModel.Nodes.MovementOperator;
 
 namespace LinqSTG.Demo.NodeGraph
 {
@@ -79,23 +81,35 @@ namespace LinqSTG.Demo.NodeGraph
                     UpdatePrediction();
                 });
 
-            NodeList.AddNodeType(() => new ShootNode());
+            NodeList.AddNodeType(() => new ConstantFloatNode());
+            NodeList.AddNodeType(() => new ConstantIntNode());
+            NodeList.AddNodeType(() => new ConstantStringNode());
+            NodeList.AddNodeType(() => new RepeaterKeyNode());
+            NodeList.AddNodeType(() => new Vector2FromRotationDistanceNode());
+            NodeList.AddNodeType(() => new Vector2Node());
+
+            NodeList.AddNodeType(() => new AddNode());
+            NodeList.AddNodeType(() => new FloatToIntNode());
+            NodeList.AddNodeType(() => new IntToFloatNode());
+            NodeList.AddNodeType(() => new MinMaxNode());
+            NodeList.AddNodeType(() => new Sample01Node());
+            NodeList.AddNodeType(() => new Sample01MinMaxNode());
+            NodeList.AddNodeType(() => new TakeRepeaterFromContextNode());
+            NodeList.AddNodeType(() => new TakeVariableFromContextNode());
+
+            NodeList.AddNodeType(() => new StationaryMovementNode());
+            NodeList.AddNodeType(() => new UniformVelocityMovementNode());
+
+            NodeList.AddNodeType(() => new MovementSumNode());
 
             NodeList.AddNodeType(() => new RepeatWithIntervalPatternNode());
 
             NodeList.AddNodeType(() => new MapPatternNode());
             NodeList.AddNodeType(() => new ExtrudePatternNode());
 
-            NodeList.AddNodeType(() => new UniformVelocityMovementNode());
+            NodeList.AddNodeType(() => new AssignNode());
 
-            NodeList.AddNodeType(() => new SampleMinMaxNode());
-            NodeList.AddNodeType(() => new MinMaxNode());
-            NodeList.AddNodeType(() => new Sample01Node());
-
-            NodeList.AddNodeType(() => new ConstantFloatNode());
-            NodeList.AddNodeType(() => new ConstantIntNode());
-            NodeList.AddNodeType(() => new ConstantStringNode());
-            NodeList.AddNodeType(() => new TakeVariableFromContextNode());
+            NodeList.AddNodeType(() => new ShootNode());
         }
 
         private void UpdatePrediction()
@@ -106,6 +120,7 @@ namespace LinqSTG.Demo.NodeGraph
                 if (Time >= pred.StartTime)
                 {
                     var point = pred.PointFunc.Invoke(Time - pred.StartTime);
+                    if (float.IsNaN(point.X) || float.IsNaN(point.Y)) continue;
                     Points.Add(new PointF(point.X, -point.Y));
                 }
             }

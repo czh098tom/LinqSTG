@@ -1,7 +1,5 @@
 ﻿using DynamicData;
-using LinqSTG.Demo.NodeGraph.ViewModel;
 using LinqSTG.Demo.NodeGraph.ViewModel.Editor;
-using LinqSTG.Demo.NodeGraph.ViewModel.Nodes;
 using NodeNetwork.Toolkit.ValueNode;
 using NodeNetwork.ViewModels;
 using System;
@@ -19,24 +17,21 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Pattern
     {
         public IntegerValueEditorViewModel InputTimesEditor { get; } = new() { RawValue = 1 };
         public IntegerValueEditorViewModel InputIntervalEditor { get; } = new();
-        public ValueNodeInputViewModel<Contextual<string>?> InputIDFieldName { get; }
-        public ValueNodeInputViewModel<Contextual<string>?> InputTotalFieldName { get; }
-        public ValueNodeInputViewModel<Contextual<int>?> InputTimes { get; }
-        public ValueNodeInputViewModel<Contextual<int>?> InputInterval { get; }
-        public ValueNodeOutputViewModel<Contextual<IPattern<Parameter, int>>> OutputPattern { get; }
+        public LinqSTGNodeInputViewModel<Contextual<RepeaterKey>?> InputRepeaterKey { get; }
+        public LinqSTGNodeInputViewModel<Contextual<int>?> InputTimes { get; }
+        public LinqSTGNodeInputViewModel<Contextual<int>?> InputInterval { get; }
+        public LinqSTGNodeOutputViewModel<Contextual<IPattern<Parameter, int>>> OutputPattern { get; }
 
         public RepeatWithIntervalPatternNode()
         {
             InputTimes = LinqSTGNodeInputViewModel.Int("Times", InputTimesEditor);
             InputInterval = LinqSTGNodeInputViewModel.Int("Interval", InputIntervalEditor);
-            InputIDFieldName = LinqSTGNodeInputViewModel.String("ID Key");
-            InputTotalFieldName = LinqSTGNodeInputViewModel.String("Total Key");
+            InputRepeaterKey = LinqSTGNodeInputViewModel.RepeaterKey("Repeater Key");
             OutputPattern = LinqSTGNodeOutputViewModel.Pattern("Pattern");
 
             AddInput("times", InputTimes);
             AddInput("interval", InputInterval);
-            AddInput("id_key", InputIDFieldName);
-            AddInput("total_key", InputTotalFieldName);
+            AddInput("repeater", InputRepeaterKey);
             AddOutput("pattern", OutputPattern);
             AddEditor("times", InputTimesEditor);
             AddEditor("interval", InputIntervalEditor);
@@ -46,13 +41,17 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Pattern
             TitleColor = NodeColors.Pattern;
 
             OutputPattern.Value = InputTimes.ValueChanged
-                .CombineLatest(InputInterval.ValueChanged, InputIDFieldName.ValueChanged, InputTotalFieldName.ValueChanged,
-                    (times, interval, id, total) => Contextual.Create(dict => 
+                .CombineLatest(InputInterval.ValueChanged, InputRepeaterKey.ValueChanged,
+                    (times, interval, repeater) => Contextual.Create(dict =>
                         Pattern.RepeatWithInterval(times?.Invoke(dict) ?? 0, interval?.Invoke(dict) ?? 0)
-                        .Select(r => new Parameter(dict)
+                        .Select(r =>
                         {
-                            [id?.Invoke(dict) ?? "ID"] = r.ID,
-                            [total?.Invoke(dict) ?? "Total"] = r.Total,
+                            var rKey = repeater?.Invoke(dict) ?? RepeaterKey.Default;
+                            return new Parameter(dict)
+                            {
+                                [rKey.ID] = r.ID,
+                                [rKey.Total] = r.Total,
+                            };
                         })));
         }
     }

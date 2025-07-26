@@ -1,6 +1,5 @@
 ﻿using DynamicData;
 using LinqSTG.Demo.NodeGraph;
-using LinqSTG.Demo.NodeGraph.ViewModel;
 using LinqSTG.Kinematics;
 using NodeNetwork.Toolkit.ValueNode;
 using NodeNetwork.ViewModels;
@@ -9,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,8 +19,8 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes
 
     public class ShootNode : LinqSTGNodeViewModel
     {
-        public ValueNodeInputViewModel<Contextual<IPattern<Parameter, int>>?> InputPattern { get; }
-        public ValueNodeInputViewModel<Contextual<Predictor<int, PointF>>?> InputMovement { get; }
+        public LinqSTGNodeInputViewModel<Contextual<IPattern<Parameter, int>>?> InputPattern { get; }
+        public LinqSTGNodeInputViewModel<Contextual<Predictor<int, Vector2>>?> InputMovement { get; }
 
         public IObservable<Contextual<IEnumerable<PointPrediction>>> Result { get; }
 

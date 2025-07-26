@@ -1,6 +1,4 @@
 ﻿using DynamicData;
-using LinqSTG.Demo.NodeGraph.ViewModel;
-using LinqSTG.Demo.NodeGraph.ViewModel.Nodes;
 using NodeNetwork.Toolkit.ValueNode;
 using System;
 using System.Collections.Generic;
@@ -9,13 +7,13 @@ using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Operator
+namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.PatternOperator
 {
     public class ExtrudePatternNode : LinqSTGNodeViewModel
     {
-        public ValueNodeInputViewModel<Contextual<IPattern<Parameter, int>>?> InputPattern { get; }
-        public ValueNodeInputViewModel<Contextual<IPattern<Parameter, int>>?> InputSubPattern { get; }
-        public ValueNodeOutputViewModel<Contextual<IPattern<Parameter, int>>> OutputPattern { get; }
+        public LinqSTGNodeInputViewModel<Contextual<IPattern<Parameter, int>>?> InputPattern { get; }
+        public LinqSTGNodeInputViewModel<Contextual<IPattern<Parameter, int>>?> InputSubPattern { get; }
+        public LinqSTGNodeOutputViewModel<Contextual<IPattern<Parameter, int>>> OutputPattern { get; }
 
         public ExtrudePatternNode()
         {

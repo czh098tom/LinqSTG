@@ -3,12 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace LinqSTG.Demo.NodeGraph
 {
-    public class PointShooter<TData>(Func<TData?, Predictor<int, PointF>?> createPrediction)
+    public class PointShooter<TData>(Func<TData?, Predictor<int, Vector2>?> createPrediction)
         : IShooter<TData, int, IEnumerable<PointPrediction>>
     {
         public IEnumerable<PointPrediction> Shoot(IPattern<TData, int>? pattern)

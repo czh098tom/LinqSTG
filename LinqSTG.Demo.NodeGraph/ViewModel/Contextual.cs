@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LinqSTG.Demo.NodeGraph.ViewModel
 {
-    public delegate T Contextual<T>(Parameter param);
+    public delegate T Contextual<out T>(Parameter param);
 
     public static class Contextual
     {
