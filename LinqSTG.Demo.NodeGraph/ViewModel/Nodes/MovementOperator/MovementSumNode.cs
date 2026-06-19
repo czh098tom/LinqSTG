@@ -12,9 +12,9 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.MovementOperator
 {
     public class MovementSumNode : LinqSTGNodeViewModel
     {
-        public LinqSTGNodeInputViewModel<Contextual<Predictor<int, Vector2>>?> InputMovement1 { get; }
-        public LinqSTGNodeInputViewModel<Contextual<Predictor<int, Vector2>>?> InputMovement2 { get; }
-        public LinqSTGNodeOutputViewModel<Contextual<Predictor<int, Vector2>>> OutputMovement { get; }
+        public LinqSTGNodeInputViewModel<Contextual<IParametric<int, Vector2>>?> InputMovement1 { get; }
+        public LinqSTGNodeInputViewModel<Contextual<IParametric<int, Vector2>>?> InputMovement2 { get; }
+        public LinqSTGNodeOutputViewModel<Contextual<IParametric<int, Vector2>>> OutputMovement { get; }
 
         public MovementSumNode()
         {
@@ -32,8 +32,8 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.MovementOperator
             OutputMovement.Value = InputMovement1.ValueChanged
                 .CombineLatest(InputMovement2.ValueChanged, (m1, m2)
                     => Contextual.Create(dict
-                        => new Predictor<int, Vector2>(t 
-                            => (m1?.Invoke(dict)?.Invoke(t) ?? Vector2.Zero) + (m2?.Invoke(dict)?.Invoke(t) ?? Vector2.Zero))));
+                        => new Parametric<int, Vector2>(t
+                            => (m1?.Invoke(dict)?.Predict(t) ?? Vector2.Zero) + (m2?.Invoke(dict)?.Predict(t) ?? Vector2.Zero))));
         }
     }
 }

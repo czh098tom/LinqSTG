@@ -20,7 +20,7 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes
     public class ShootNode : LinqSTGNodeViewModel
     {
         public LinqSTGNodeInputViewModel<Contextual<IPattern<Parameter, int>>?> InputPattern { get; }
-        public LinqSTGNodeInputViewModel<Contextual<Predictor<int, Vector2>>?> InputMovement { get; }
+        public LinqSTGNodeInputViewModel<Contextual<IParametric<int, Vector2>>?> InputMovement { get; }
 
         public IObservable<Contextual<IEnumerable<PointPrediction>>> Result { get; }
 

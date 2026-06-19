@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LinqSTG.Demo.NodeGraph
 {
-    public class PointShooter<TData>(Func<TData?, Predictor<int, Vector2>?> createPrediction)
+    public class PointShooter<TData>(Func<TData?, IParametric<int, Vector2>?> createPrediction)
         : IShooter<TData, int, IEnumerable<PointPrediction>>
     {
         public IEnumerable<PointPrediction> Shoot(IPattern<TData, int>? pattern)

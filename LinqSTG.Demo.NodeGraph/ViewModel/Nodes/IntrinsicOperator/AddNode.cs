@@ -48,7 +48,7 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.IntrinsicOperator
             if (lhs is Contextual<Vector2> cvec1 && rhs is Contextual<Vector2> cvec2)
             {
                 return Contextual.Create(dict => 
-                    Predictor.Create<int, Vector2>(t => cvec1(dict) + cvec2(dict)));
+                    Parametric.Create<int, Vector2>(t => cvec1(dict) + cvec2(dict)));
             }
             return null;
         }

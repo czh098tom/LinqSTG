@@ -25,7 +25,7 @@ namespace LinqSTG.Demo.WPF
                 "LinqSTG.Demo.WPF",
                 "LinqSTG.Demo.WPF.DegreeMaths",
                 "LinqSTG.Kinematics",
-                "LinqSTG.Kinematics.Predictor");
+                "LinqSTG.Kinematics.Parametric");
 
         public string PatternScript
         {

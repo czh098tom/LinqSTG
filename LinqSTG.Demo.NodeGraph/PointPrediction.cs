@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LinqSTG.Demo.NodeGraph
 {
-    public readonly record struct PointPrediction(Predictor<int, Vector2> PointFunc, int StartTime)
+    public readonly record struct PointPrediction(IParametric<int, Vector2> PointFunc, int StartTime)
     {
     }
 }

@@ -17,7 +17,7 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Movement
     public class UniformVelocityMovementNode : LinqSTGNodeViewModel
     {
         public LinqSTGNodeInputViewModel<Contextual<Vector2>?> InputVelocity { get; }
-        public LinqSTGNodeOutputViewModel<Contextual<Predictor<int, Vector2>>> OutputMovement { get; }
+        public LinqSTGNodeOutputViewModel<Contextual<IParametric<int, Vector2>>> OutputMovement { get; }
 
         public UniformVelocityMovementNode()
         {
@@ -33,7 +33,7 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Movement
 
             OutputMovement.Value = InputVelocity.ValueChanged.Select(vec 
                 => Contextual.Create(dict 
-                    => new Predictor<int, Vector2>(t => (vec?.Invoke(dict) ?? Vector2.Zero) * t)));
+                    => new Parametric<int, Vector2>(t => (vec?.Invoke(dict) ?? Vector2.Zero) * t)));
         }
     }
 }

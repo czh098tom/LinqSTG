@@ -119,7 +119,7 @@ namespace LinqSTG.Demo.NodeGraph
             {
                 if (Time >= pred.StartTime)
                 {
-                    var point = pred.PointFunc.Invoke(Time - pred.StartTime);
+                    var point = pred.PointFunc.Predict(Time - pred.StartTime);
                     if (float.IsNaN(point.X) || float.IsNaN(point.Y)) continue;
                     Points.Add(new PointF(point.X, -point.Y));
                 }

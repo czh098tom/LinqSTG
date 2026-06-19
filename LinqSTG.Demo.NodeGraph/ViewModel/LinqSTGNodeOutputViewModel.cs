@@ -132,9 +132,9 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel
             };
         }
 
-        public static LinqSTGNodeOutputViewModel<Contextual<Predictor<int, Vector2>>> Movement(string? name = null)
+        public static LinqSTGNodeOutputViewModel<Contextual<IParametric<int, Vector2>>> Movement(string? name = null)
         {
-            return new LinqSTGNodeOutputViewModel<Contextual<Predictor<int, Vector2>>>()
+            return new LinqSTGNodeOutputViewModel<Contextual<IParametric<int, Vector2>>>()
             {
                 Name = name,
                 Port = new LinqSTGPortViewModel(PortColor.Movement),

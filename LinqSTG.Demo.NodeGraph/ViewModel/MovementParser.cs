@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace LinqSTG.Demo.NodeGraph.ViewModel
 {
-    public delegate Predictor<TTime, TData> MovementParser<TTime, TData>(Dictionary<string, float> param);
+    public delegate IParametric<TTime, TData> MovementParser<TTime, TData>(Dictionary<string, float> param);
 }

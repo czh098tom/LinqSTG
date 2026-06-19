@@ -14,7 +14,7 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Movement
     public class StationaryMovementNode : LinqSTGNodeViewModel
     {
         public LinqSTGNodeInputViewModel<Contextual<Vector2>?> InputPosition { get; }
-        public LinqSTGNodeOutputViewModel<Contextual<Predictor<int, Vector2>>> OutputMovement { get; }
+        public LinqSTGNodeOutputViewModel<Contextual<IParametric<int, Vector2>>> OutputMovement { get; }
 
         public StationaryMovementNode()
         {
@@ -30,7 +30,7 @@ namespace LinqSTG.Demo.NodeGraph.ViewModel.Nodes.Movement
             OutputMovement.Value = InputPosition.ValueChanged
                 .Select(vec
                     => Contextual.Create(dict
-                        => new Predictor<int, Vector2>(t => vec?.Invoke(dict) ?? Vector2.Zero)));
+                        => new Parametric<int, Vector2>(t => vec?.Invoke(dict) ?? Vector2.Zero)));
         }
     }
 }

@@ -6,7 +6,7 @@ using LinqSTG.Easings;
 using LinqSTG.Demo.WPF;
 using static LinqSTG.Demo.WPF.DegreeMaths;
 using LinqSTG.Kinematics;
-using static LinqSTG.Kinematics.Predictor;
+using static LinqSTG.Kinematics.Parametric;
 
 namespace LinqSTG.Demo.WPF
 {
@@ -128,8 +128,8 @@ namespace LinqSTG.Demo.WPF
                         .AfterTime(t1, UniformVelocity<float, float, float>(v2mul))
                         .AfterTime(t2, UniformAcceleration<float, float, float, float>(v2mul, (v3mul - v2mul) / (t3 - t2)))
                         .AfterTime(t3, UniformVelocity<float, float, float>(v3mul));
-                    return new(v.Select(v => r.v * v * Cos(r.r) + r.x).Invoke(t), 
-                        v.Select(v => r.v * v * Sin(r.r) + r.y).Invoke(t));
+                    return new(v.Select(v => r.v * v * Cos(r.r) + r.x).Predict(t), 
+                        v.Select(v => r.v * v * Sin(r.r) + r.y).Predict(t));
                 }).Shoot(pattern);
         }
 
