@@ -1,34 +1,31 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LinqSTG.Kinematics
 {
     public static class ParametricExtension
     {
-        public static IParametric<TTime, UData> Select<TTime, TData, UData>(this IParametric<TTime, TData> predictor,
-            Func<TData, UData> selector)
+        public static SelectParametric<TTime, TData, UData> Select<TTime, TData, UData>(
+            this IParametric<TTime, TData> predictor, Func<TData, UData> selector)
         {
             return predictor == null ?
                 throw new ArgumentNullException(nameof(predictor)) :
                 selector == null ?
                     throw new ArgumentNullException(nameof(selector)) :
-                    new Parametric<TTime, UData>(time => selector(predictor.Predict(time)));
+                    new SelectParametric<TTime, TData, UData>(predictor, selector);
         }
 
-        public static IParametric<TTime, TData> Offset<TTime, TData>(this IParametric<TTime, TData> predictor, TData data)
+        public static OffsetParametric<TTime, TData> Offset<TTime, TData>(
+            this IParametric<TTime, TData> predictor, TData offset)
             where TData : IAdditionOperators<TData, TData, TData>
         {
             return predictor == null ?
                 throw new ArgumentNullException(nameof(predictor)) :
-                new Parametric<TTime, TData>(time => predictor.Predict(time) + data);
+                new OffsetParametric<TTime, TData>(predictor, offset);
         }
 
-        public static IParametric<TTime, TData> AfterTime<TTime, TData>(this IParametric<TTime, TData> predictor,
-            TTime time, IParametric<TTime, TData> after)
+        public static AfterTimeParametric<TTime, TData> AfterTime<TTime, TData>(
+            this IParametric<TTime, TData> predictor, TTime time, IParametric<TTime, TData> after)
             where TTime : IComparisonOperators<TTime, TTime, bool>, ISubtractionOperators<TTime, TTime, TTime>
             where TData : IAdditionOperators<TData, TData, TData>
         {
@@ -36,7 +33,7 @@ namespace LinqSTG.Kinematics
                 throw new ArgumentNullException(nameof(predictor)) :
                 after == null ?
                     throw new ArgumentNullException(nameof(after)) :
-                    new Parametric<TTime, TData>(t => t < time ? predictor.Predict(t) : after.Predict(t - time) + predictor.Predict(time));
+                    new AfterTimeParametric<TTime, TData>(predictor, time, after);
         }
     }
 }
