@@ -99,13 +99,31 @@ namespace LinqSTG.Demo.NodeGraph
 
             NodeList.AddNodeType(() => new StationaryMovementNode());
             NodeList.AddNodeType(() => new UniformVelocityMovementNode());
+            NodeList.AddNodeType(() => new UniformAccelerationMovementNode());
 
             NodeList.AddNodeType(() => new MovementSumNode());
+            NodeList.AddNodeType(() => new MovementOffsetNode());
+            NodeList.AddNodeType(() => new MovementAfterTimeNode());
 
+            NodeList.AddNodeType(() => new RepeatPatternNode());
             NodeList.AddNodeType(() => new RepeatWithIntervalPatternNode());
+            NodeList.AddNodeType(() => new SingleDataPatternNode());
+            NodeList.AddNodeType(() => new SingleIntervalPatternNode());
+            NodeList.AddNodeType(() => new EmptyPatternNode());
 
             NodeList.AddNodeType(() => new MapPatternNode());
             NodeList.AddNodeType(() => new ExtrudePatternNode());
+            NodeList.AddNodeType(() => new ExtrudeConcatPatternNode());
+            NodeList.AddNodeType(() => new FilterPatternNode());
+            NodeList.AddNodeType(() => new ConcatPatternNode());
+            NodeList.AddNodeType(() => new ReversePatternNode());
+            NodeList.AddNodeType(() => new SkipPatternNode());
+            NodeList.AddNodeType(() => new TakePatternNode());
+            NodeList.AddNodeType(() => new SkipWhilePatternNode());
+            NodeList.AddNodeType(() => new TakeWhilePatternNode());
+            NodeList.AddNodeType(() => new TrimStartPatternNode());
+            NodeList.AddNodeType(() => new TrimEndPatternNode());
+            NodeList.AddNodeType(() => new TrimPatternNode());
 
             NodeList.AddNodeType(() => new AssignNode());
 
