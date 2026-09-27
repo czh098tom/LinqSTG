@@ -2,9 +2,10 @@ using System.Numerics;
 
 namespace LinqSTG.Kinematics
 {
-    public sealed class UniformAccelerationParametric<TTime, TData, TAccel, TVelocity> : IParametric<TTime, TData>
+    public sealed class UniformAccelerationParametric<TTime, TData, TAccel, TVelocity>
+        : IDerivableParametric<TTime, TData, TVelocity>
         where TAccel : IMultiplyOperators<TAccel, TTime, TVelocity>
-        where TVelocity : IMultiplyOperators<TVelocity, TTime, TData>
+        where TVelocity : IMultiplyOperators<TVelocity, TTime, TData>, IAdditionOperators<TVelocity, TVelocity, TVelocity>
         where TData : IAdditionOperators<TData, TData, TData>, IDivisionOperators<TData, TData, TData>, IMultiplicativeIdentity<TData, TData>
     {
         public TVelocity Velocity { get; }
@@ -20,5 +21,7 @@ namespace LinqSTG.Kinematics
 
         public TData Predict(TTime time)
             => Velocity * time + Accel * time * time / (TData.MultiplicativeIdentity + TData.MultiplicativeIdentity);
+
+        public TVelocity Derive(TTime time) => Velocity + Accel * time;
     }
 }

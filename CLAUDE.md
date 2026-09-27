@@ -24,7 +24,7 @@ The two WPF demos target `net8.0-windows` and require Windows + the Windows Desk
 | Project | TFM | Role |
 |---|---|---|
 | `LinqSTG` | `net8.0;netstandard2.1` | Core library — the `IPattern<TData,TInterval>` model and all operators. |
-| `LinqSTG.Kinematics` | `net8.0` | `IParametric<TTime,TData>` interface + `Parametric` factory and `ParametricExtension` combinators (`UniformVelocity`, `UniformAcceleration`, `Offset`, `AfterTime`) for computing trajectories. |
+| `LinqSTG.Kinematics` | `net8.0` | `IParametric<TTime,TData>` interface + `Parametric` factory and `ParametricExtension` combinators (`UniformVelocity`, `UniformAcceleration`, `Offset`, `AfterTime`) for computing trajectories. `IDerivableParametric<TTime,TData,TDerivative>` adds `Derive(time)` (first derivative, e.g. velocity); `UniformVelocity`/`UniformAcceleration` implement it, and the `Offset`/`AfterTime`/`Parametric.Derivable` overloads preserve derivability through composition. Note the generic constraints only admit pure numeric types — `Vector2` does not implement the generic-math interfaces, so vector motions are built via the delegate-based `Parametric`/`DerivableParametric` classes (see the NodeGraph demo). |
 | `LinqSTG.Test` | `net8.0` | NUnit tests for core patterns. |
 | `LinqSTG.Demo` | `net8.0` | Console demo (`Program.cs` is top-level statements). |
 | `LinqSTG.Demo.WPF` | `net8.0-windows` | Visual demo; the user types C# into a text box and `Microsoft.CodeAnalysis.CSharp.Scripting` evaluates it at runtime. |

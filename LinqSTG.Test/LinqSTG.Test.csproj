@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LinqSTG\LinqSTG.csproj" />
+    <ProjectReference Include="..\LinqSTG.Kinematics\LinqSTG.Kinematics.csproj" />
   </ItemGroup>
 
   <ItemGroup>
